@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -16,7 +16,8 @@ import { db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function CheckoutSuccess() {
+// Component that uses useSearchParams
+function CheckoutSuccessContent() {
   const { clearCart } = useCart();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
@@ -142,5 +143,36 @@ export default function CheckoutSuccess() {
 
       <Footer />
     </div>
+  );
+}
+
+// Loading component for Suspense fallback
+function LoadingFallback() {
+  return (
+    <div className='bg-[url("/images/backgrounds/SoilBackground.jpg")] bg-cover bg-center bg-fixed'>
+      <Header />
+      <main className="pt-21">
+        <div className="bg-[#000000]/50">
+          <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-8 lg:py-16">
+            <div className="overflow-hidden max-w-fit mx-auto p-8 lg:p-16 bg-white rounded-lg lg:rounded-xl shadow-lg">
+              <div className="flex flex-col items-center justify-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#498118] mb-4"></div>
+                <p className="text-[#4A5565]">Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function CheckoutSuccess() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <CheckoutSuccessContent />
+    </Suspense>
   );
 }
