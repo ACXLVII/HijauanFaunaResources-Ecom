@@ -18,7 +18,7 @@ export default function HomePage() {
         <Welcome />
         <Prices />
         <Services />
-        <Results />
+        <Results /> 
         {/* <Contact /> */}
       </main>
 
