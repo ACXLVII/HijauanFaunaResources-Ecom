@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe('sk_test_51RvdXeFg23GXTtGm9n2Rs6Oj5bZbZbS1m8rFleChO6jFzwZdqzOKYSJgoelQXJtcgmMKQR11gC8WDiuHdBcjhHSy00GGtmygqW', {
+const stripe = new Stripe('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', {
   apiVersion: '2024-12-18.acacia',
 });
 
@@ -13,8 +13,8 @@ export async function POST(request) {
       payment_method_types: ['card'],
       line_items: items,
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/checkout/cancel`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://hijauanfauna.com'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://hijauanfauna.com'}/checkout/cancel`,
       customer_email: customerEmail,
       metadata: {
         ...metadata,
