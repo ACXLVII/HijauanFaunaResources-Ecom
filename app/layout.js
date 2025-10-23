@@ -17,6 +17,8 @@ export const metadata = {
   description: "For your landscaping needs.",
   icons: {
     icon: '/images/HFRlogo.png',
+    shortcut: '/images/HFRlogo.png',
+    apple: '/images/HFRlogo.png',
   },
 };
 
