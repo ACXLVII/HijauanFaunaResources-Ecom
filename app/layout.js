@@ -16,7 +16,7 @@ export const metadata = {
   title: "Hijauan Fauna",
   description: "For your landscaping needs.",
   icons: {
-    icon: 'public/images/HFRlogo.png',
+    icon: '/images/HFRlogo.png',
   },
 };
 
