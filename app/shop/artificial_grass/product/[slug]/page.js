@@ -10,7 +10,7 @@ export default async function ProductPage({ params }) {
   const headersList = await headers();
   const host = headersList.get('host');
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-  const res = await fetch(`${protocol}://localhost:3000/api/artificial_grass/${slug}`, { cache: 'no-store' });
+  const res = await fetch(`${protocol}://hijauanfauna.com/api/artificial_grass/${slug}`, { cache: 'no-store' });
   const product = await res.json();
 
   // Pass productData to your SectionContent or other components
