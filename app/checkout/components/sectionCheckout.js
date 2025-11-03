@@ -17,16 +17,20 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 export default function SectionCheckout() {
   const { cart } = useCart();
   const productsInCart = cart;
-  console.log("Products In Cart:", productsInCart);
   const [orderData, setOrderData] = useState({
     name: "",
     email: "",
     phone: "",
     requestShipping: false,
   });
-  const [touched, setTouched] = useState({ name: false, email: false, phone: false });
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    phone: false
+  });
   const [focusedField, setFocusedField] = useState(null);
   const [showErrors, setShowErrors] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subtotal = productsInCart.reduce((sum, product) => {
     const price = parseFloat(String(product.price).replace(/[^0-9.-]+/g, ""));
@@ -58,6 +62,7 @@ export default function SectionCheckout() {
 
   const handleStripeCheckout = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       // Validate required fields
@@ -169,7 +174,6 @@ export default function SectionCheckout() {
 
       if (error) {
         toast.error("Error creating checkout session");
-        // setLoading(false);
         return;
       }
 
@@ -181,16 +185,16 @@ export default function SectionCheckout() {
 
       if (stripeError) {
         toast.error("Error redirecting to checkout");
-        // setLoading(false);
       }
     } catch (error) {
-      console.error('Checkout error:', error);
-      toast.error("An error occurred during checkout");
-      // setLoading(false);
+      console.error('Checkout Error:', error);
+      toast.error("An error occurred during checkout. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // User Details Validation Logic
+  // Validation Logic
   const isNameValid = orderData.name.trim().length > 0;
   const isEmailValid = /\S+@\S+\.\S+/.test(orderData.email);
   const isPhoneValid = orderData.phone.trim().length > 9 && !/[a-zA-Z]/.test(orderData.phone);
@@ -205,6 +209,7 @@ export default function SectionCheckout() {
   const nameError = shouldShowNameError ? 'Please enter your name.' : '';
   const emailError = shouldShowEmailError ? 'Please enter a valid email address.' : '';
   const phoneError = shouldShowPhoneError ? 'Please enter a valid phone number.' : '';
+  
   // Handle Disabled Button Click
   const handleDisabledButtonClick = () => {
     // Mark all fields as touched AND enable error display
@@ -277,18 +282,20 @@ export default function SectionCheckout() {
 
           </div>
 
-          {/* Customer Information */}
+          {/* Checkout Form */}
           <div className="p-4 lg:p-8 bg-[#FFFFFF] rounded-lg lg:rounded-xl shadow-lg">
             <h2 className="mb-4 font-bold tracking-tight text-lg lg:text-xl text-[#101828]">
               Customer Information
             </h2>
             <hr className="mb-4 border-t-2 border-[#C39533]" />
+
             <form className="space-y-2 lg:space-y-4">
+
               {/* Name */}
               <div className="">
                 <div className="flex items-center justify-between mb-1 lg:mb-2">
                   <h3 className="text-md lg:text-lg text-[#4A5565]">
-                    Name:
+                    Name: <span className="text-red-500">*</span>
                   </h3>
                   { nameError && (
                     <div role="alert" className="text-sm lg:text-md text-red-500">{nameError}</div>
@@ -314,13 +321,15 @@ export default function SectionCheckout() {
                         ? 'border-red-500' 
                         : 'border-[#AAAAAA] focus:border-[#C39533]'
                   }`}
+                  placeholder="Enter your full name"
                 />
               </div>
+
               {/* Email */}
               <div className="">
                 <div className="flex items-center justify-between mb-1 lg:mb-2">
                   <h3 className="text-md lg:text-lg text-[#4A5565]">
-                    Email address:
+                    Email address: <span className="text-red-500">*</span>
                   </h3>
                   { emailError && (
                     <div role="alert" className="text-sm lg:text-md text-red-500">{emailError}</div>
@@ -346,13 +355,15 @@ export default function SectionCheckout() {
                         ? 'border-red-500' 
                         : 'border-[#AAAAAA] focus:border-[#C39533]'
                   }`}
+                  placeholder="Enter your email address"
                 />
               </div>
+
               {/* Phone Number */}
               <div className="">
                 <div className="flex items-center justify-between mb-1 lg:mb-2">
                   <h3 className="text-md lg:text-lg text-[#4A5565]">
-                    Phone Number:
+                    Phone Number: <span className="text-red-500">*</span>
                   </h3>
                   { phoneError && (
                     <div role="alert" className="text-sm lg:text-md text-red-500">{phoneError}</div>
@@ -378,8 +389,14 @@ export default function SectionCheckout() {
                         ? 'border-red-500' 
                         : 'border-[#AAAAAA] focus:border-[#C39533]'
                   }`}
+                  placeholder="Enter your phone number"
                 />
               </div>
+              
+              <p className="text-center text-sm lg:text-md text-[#4A5565]">
+                <span className="text-red-500">*</span> Required fields
+              </p>
+
               {/* Preference Checkboxes */}
               <div className="">
                 <h3 className="mb-1 lg:mb-2 text-md lg:text-lg text-[#4A5565]">
@@ -443,14 +460,15 @@ export default function SectionCheckout() {
                 type="button"
                 onClick={!isFormValid ? handleDisabledButtonClick : handleStripeCheckout}
                 className={`w-full p-2 lg:p-4 font-bold text-md lg:text-lg text-[#FFFFFF] rounded-md lg:rounded-lg shadow-lg transition ${
-                  !isFormValid 
+                  !isFormValid || isSubmitting
                     ? 'bg-[#498118]/50 cursor-not-allowed' 
                     : 'bg-[#498118] cursor-pointer hover:scale-105 active:scale-95'
                 }`}
-                aria-disabled={!isFormValid}
+                aria-disabled={!isFormValid || isSubmitting}
               >
-                Continue to Payment
+                {isSubmitting ? 'Processing...' : 'Continue to Payment'}
               </button>
+
               <p className="text-center text-sm lg:text-md text-[#4A5565]">
                 You won't be charged until the next step.
               </p>

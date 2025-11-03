@@ -82,16 +82,19 @@ export default function SectionTipsGrass() {
           <div className="lg:col-span-7">
             <dl className="space-y-4 lg:space-y-8">
             {faqs.map((faq, index) => (
-              <div key={index} className="flex flex-col">
-                <div className="flex items-center mb-1 lg:mb-2">
-                  {renderIcon(faq.icon, "max-h-fit size-6 lg:size-8 mr-2 lg:mr-4 text-[#C39533]")}
-                  <h3 className="font-bold tracking-tight text-md lg:text-lg text-[#101828]">
-                    {faq.question}
-                  </h3>
+              <div key={index} className="overflow-hidden flex flex-col p-2 lg:p-4 rounded-lg lg:rounded-xl border-2 border-[#C39533]">
+                <div className="flex items-center gap-2 lg:gap-4">
+                  {renderIcon(faq.icon, "max-h-fit size-36 lg:size-12 text-[#C39533]")}
+                  <div className="min-h-full w-px self-stretch border-l-2 border-[#C39533]" />
+                  <div className="">
+                    <h3 className="mb-1 lg:mb-2 font-bold tracking-tight text-md lg:text-lg text-[#101828]">
+                      {faq.question}
+                    </h3>
+                    <p className="text-justify text-sm lg:text-md text-[#4A5565]">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-sm lg:text-md text-[#4A5565]">
-                  {faq.answer}
-                </p>
               </div>
             ))}
             </dl>

@@ -1,26 +1,41 @@
 export default function SectionIntro() {
-    return (
-        <div className="bg-black/70">
-            <div className="max-w-7xl mx-auto px-12 lg:px-24 py-24 lg:py-32">
-              <div className="max-w-3xl mx-auto text-center">
-            
-                  {/* Title */}
-                  <h2 className="mb-4 lg:mb-8 tracking-tight font-bold text-balance text-md lg:text-lg text-[#C39533]" style={{ textShadow: '2px 2px 2px rgba(0, 0, 0, 1)' }}>
-                    Hijauan Fauna Resources
-                  </h2>
-
-                  {/* Motto */}
-                  <h1 className="mb-4 lg:mb-8 tracking-tight font-bold text-balance text-3xl lg:text-5xl text-white">
-                    [Insert Company Motto]
-                  </h1>
-
-                  {/* Sentence */}
-                  <p className="text-md lg:text-lg text-white">
-                    [Insert catchy marketing sentence.] Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  </p>
-                  
-              </div>
-            </div>
+  return (
+    <div className="bg-[#000000]/50">
+      <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-16 lg:py-32">
+        
+        {/* Intro BEGINS */}
+        <div className="flex flex-col items-center justify-center mb-16 lg:mb-32">
+          <h1 className="mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-center text-4xl lg:text-5xl text-[#FFFFFF]">
+            We are <span className="text-[#498118]">Hijauan Fauna Resources</span>
+          </h1>
+          <p className="p-2 bg-[#000000]/70 text-center text-lg lg:text-xl text-[#EEEEEE]">
+            Dedicated to bring <span className="text-[#56BB00]">nature</span> closer to <span className="text-[#C39533]">you</span>.
+          </p>
         </div>
-    )
-  }
+        {/* Intro ENDS */}
+
+        {/* Feature Grid BEGINS */}
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 lg:gap-16">
+          
+          {/* Feature 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+            <img
+              src="/images/about/weDaBest.jpg"
+              alt="We Da Best"
+              className="object-cover aspect-4/3 w-full rounded-lg lg:rounded-xl shadow-lg"
+            />
+            <div className="lg:flex lg:flex-col lg:justify-center">
+              <p className="p-2 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
+                At Hijauan Fauna, we are passionate about turning outdoor spaces into beautiful, functional, and relaxing environments. From custom landscaping and
+                reliable maintenance to premium grass solutions in both artificial and live varieties, we help homeowners and businesses create green spaces that suit
+                their lifestyle. With a strong focus on quality, care, and customer satisfaction, we make it easy for you to enjoy your garden without the stress.
+              </p>
+            </div>
+          </div>
+        
+        </div>
+
+      </div>
+    </div>
+  )
+}

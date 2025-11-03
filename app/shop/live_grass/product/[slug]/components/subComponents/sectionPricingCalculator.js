@@ -107,17 +107,23 @@ export default function PricingCalculator({
   const { addToCart } = useCart();
 
   const handleAreaChange = (e) => {
-    let val = e.target.value.replace(/\D/g, '');
-    val = val.replace(/^0+/, '');
+    let val = e.target.value.replace(/[^\d.]/g, ''); // Allow digits and decimal points
+    // Prevent multiple decimal points
+    const parts = val.split('.');
+    if (parts.length > 2) {
+      val = parts[0] + '.' + parts.slice(1).join('');
+    }
+    // Remove leading zeros but keep single zero before decimal
+    val = val.replace(/^0+/, '') || '0';
     setUserArea(val);
   };
 
-  const area = parseInt(userArea, 10);
+  const area = parseFloat(userArea); // Use parseFloat instead of parseInt
   const validArea = !isNaN(area) && area > 0;
   
   // Error handling similar to checkout component
   const shouldShowError = focusedField !== 'area' && (showErrors || (touched && userArea.trim().length > 0)) && (!userArea || !validArea);
-  const error = shouldShowError ? 'Please enter a round number bigger than 0.' : '';
+  const error = shouldShowError ? 'Please enter a valid number bigger than 0.' : '';
 
   // Calculation for selected unit
   let quantity = 0;
@@ -216,31 +222,31 @@ export default function PricingCalculator({
 
         <div className="flex flex-col">
           <label className="flex-1">
-            <input
-              id="userInputSqft"
-              name="userInputSqft"
-              type="number"
-              min={1}
-              step={1}
-              className={`h-12 w-full bg-[#FFFFFF] text-center text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
-                touched && validArea 
-                  ? 'border-[#C39533]' 
-                  : shouldShowError 
-                    ? 'border-red-500' 
-                    : 'border-[#AAAAAA] focus:border-[#C39533]'
-              }`}
-              value={userArea}
-              onChange={handleAreaChange}
-              onFocus={() => setFocusedField('area')}
-              onBlur={() => {
-                setTouched(true);
-                setFocusedField(null);
-              }}
-              placeholder="area (square feet)"
-              inputMode="numeric"
-              aria-label="Total area needed, in square feet (sq ft)."
-              onWheel={e => e.target.blur()}
-            />
+          <input
+            id="userInputSqft"
+            name="userInputSqft"
+            type="number"
+            min={0.1}
+            step={0.1} // Allow decimal steps
+            className={`h-12 w-full bg-[#FFFFFF] text-center text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
+              touched && validArea 
+                ? 'border-[#C39533]' 
+                : shouldShowError 
+                  ? 'border-red-500' 
+                  : 'border-[#AAAAAA] focus:border-[#C39533]'
+            }`}
+            value={userArea}
+            onChange={handleAreaChange}
+            onFocus={() => setFocusedField('area')}
+            onBlur={() => {
+              setTouched(true);
+              setFocusedField(null);
+            }}
+            placeholder="area (square feet)"
+            inputMode="decimal" // Change to decimal for better mobile experience
+            aria-label="Total area needed, in square feet (sq ft)."
+            onWheel={e => e.target.blur()}
+          />
           </label>
         </div>
 
@@ -261,13 +267,13 @@ export default function PricingCalculator({
             <div className="font-semibold text-md lg:text-lg text-[#101828]">
               Your requirements are:
             </div>
-            <ul className="ml-6 lg:ml-8 text-md lg:text-lg text-[#4A5565] list-disc">
+            <ul className="ml-6 lg:ml-8 text-justify text-md lg:text-lg text-[#4A5565] list-disc">
               <li>
-                <span className="font-bold text-[#C39533]">{quantity}</span> {selectedGroup.sizeType}(s) ({selectedGroup.measurement})
+                <span className="font-bold text-[#C39533]">{quantity}</span> {selectedGroup.sizeType}(s).
               </li>
               {selectedGroup.sizeType !== 'sqft' && selectedGroup.sizeType !== 'square foot' && extraArea > 0 && (
                 <li>
-                  <span className="font-bold text-[#C39533]">{extraArea}</span> sqft extra (will be included)
+                  <span className="font-bold text-[#C39533]">{extraArea.toFixed(2)}</span> sqft extra will be included, since the minimum measurement of a {selectedGroup.sizeType} is ({selectedGroup.measurement}).
                 </li>
               )}
             </ul>
@@ -277,7 +283,7 @@ export default function PricingCalculator({
             <div className="font-semibold text-md lg:text-lg text-[#101828]">
               Purchase includes:
             </div>
-            <ul className="ml-6 lg:ml-8 text-md lg:text-lg text-[#4A5565] list-disc">
+            <ul className="ml-6 lg:ml-8 text-justify text-md lg:text-lg text-[#4A5565] list-disc">
               <li>
                 10 Year Warranty
               </li>

@@ -1,11 +1,10 @@
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 
-import Temp from '@/app/about/components/sectionTemp'
-// import Intro from '@/app/about/components/sectionIntro.js'
+import Intro from '@/app/about/components/sectionIntro'
+import Companies from '@/app/about/components/sectionCompanies.js'
+import Contact from '@/app/about/components/sectionContact.js'
 // import Info from '@/app/about/components/sectionInfo.js'
-// import Companies from '@/app/about/components/sectionCompanies.js'
-// import Contact from '@/app/about/components/sectionContact.js'
 
 export default function About() {
   return (
@@ -13,11 +12,13 @@ export default function About() {
       <Header />
       
       <main className="pt-21"> {/* padding for header + green bar */}
-        <Temp />
-        {/* <Intro />
-        <Info />
+        <Intro />
         <Companies />
-        <Contact /> */}
+        <Contact />
+        {/*
+        <Intro />
+        <Info />
+        */}
       </main>
 
       <Footer />

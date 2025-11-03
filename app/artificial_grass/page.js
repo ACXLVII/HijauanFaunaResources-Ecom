@@ -5,6 +5,7 @@ import Heading from '@/app/artificial_grass/components/sectionHeading'
 import Marketing from '@/app/artificial_grass/components/sectionMarketing'
 import Thicknesses from '@/app/artificial_grass/components/sectionThicknesses'
 import Grades from '@/app/artificial_grass/components/sectionGrades'
+import Contact from '@/app/artificial_grass/components/sectionContact'
 
 export default function ServiceArtificialGrass() {
   return (
@@ -16,6 +17,7 @@ export default function ServiceArtificialGrass() {
         <Marketing />
         <Grades />
         <Thicknesses />
+        <Contact />
       </main>
 
       <Footer />

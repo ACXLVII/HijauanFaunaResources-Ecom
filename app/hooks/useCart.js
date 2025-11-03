@@ -99,8 +99,7 @@ export function CartProvider({ children }) {
     cart.reduce((sum, item) => sum + parseFloat(item.price), 0);
 
   // Cart count
-  const getCartCount = () =>
-    cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+  const getCartCount = () => cart.length; // Count number of items, not sum of quantities
 
   // 3. Provide context value
   return (

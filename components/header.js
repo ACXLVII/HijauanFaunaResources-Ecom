@@ -36,6 +36,7 @@ import {
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 import NavigationPanels from '/components/components/sectionNavigationPanels';
+import { useCart } from '@/app/hooks/useCart';
 
 const navigation = {
   menuItems: [
@@ -279,24 +280,8 @@ export default function Header() {
   }
 
   // [CART STATES AND FUNCTIONS]
-  const [cartCount, setCartCount] = useState(0); // Cart counter.
-
-  useEffect(() => {
-    const updateCartCount = () => { // Function to update cart count.
-      const cart = localStorage.getItem('cart'); // Cart uses local storage instead of database.
-      if (cart) { // If cart has items...
-        const items = JSON.parse(cart); // Count items.
-        setCartCount(items.length); // Set counted items.
-      } else { // Else if cart is empty...
-        setCartCount(0); // Set cart count to 0.
-      }
-    };
-    updateCartCount(); // Updates the cart count.
-    window.addEventListener('storage', updateCartCount); // Checks for cart changes in other opened browser tabs.
-    return () => {
-      window.removeEventListener('storage', updateCartCount); // window.removeEventListener('cartUpdated', updateCartCount);
-    };
-  }, []);
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
   const isServicesActive = servicesPaths.some(path => pathname.startsWith(path));
   const isShopActive = pathname.startsWith(shopPath);

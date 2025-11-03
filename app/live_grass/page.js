@@ -4,6 +4,7 @@ import Footer from '@/components/footer'
 import Heading from '@/app/live_grass/components/sectionHeading'
 import Marketing from '@/app/live_grass/components/sectionMarketing'
 import Grasses from '@/app/live_grass/components/sectionGrasses'
+import Contact from '@/app/live_grass/components/sectionContact'
 
 export default function ServiceLiveGrass() {
   return (
@@ -14,6 +15,7 @@ export default function ServiceLiveGrass() {
         <Heading />
         <Marketing />
         <Grasses />
+        <Contact />
       </main>
 
       <Footer />
