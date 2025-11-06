@@ -4,6 +4,7 @@ import React from 'react';
 
 // Icon Imports
 import { TbGardenCart } from "react-icons/tb";
+import Link from "next/link";
 
 export default function SectionHeading({ product }) {
   // const product = artificial_grass_products.find((p) => p.slug === slug);
@@ -23,8 +24,8 @@ export default function SectionHeading({ product }) {
 
         {/* Breadcrumb */}
         <p className="text-balance text-md lg:text-lg text-[#4A5565]">
-          <a href="/shop" className="hover:underline active:text-[#C39533]">Shop</a> {'> '}
-          <a href="/shop/artificial_grass" className="hover:underline active:text-[#C39533]">Artificial Grass</a> {'> '}
+          <Link href="/shop" className="hover:underline active:text-[#C39533]">Shop</Link> {'> '}
+          <Link href="/shop/artificial_grass" className="hover:underline active:text-[#C39533]">Artificial Grass</Link> {'> '}
           {product ? product.name : '[Product Not Found]'}.
         </p>
         

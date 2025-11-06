@@ -1,41 +1,90 @@
-'use client';
+'use client'
 
-import React from "react";
+import React from 'react';
+import Image from 'next/image';
 
 // Icon Imports
 import {
-  FaCloudSunRain
+  FaCloudSunRain,
+  FaHandSparkles,
+  FaRegGrinStars,
+  FaRegThumbsUp
 } from 'react-icons/fa';
 import {
   GiBandageRoll,
-  GiFallingLeaf,
-  GiGardeningShears
+  GiBarefoot,
+  GiGardeningShears,
+  GiGolfFlag,
+  GiGolfTee,
+  GiGrass,
+  GiHighGrass,
+  GiReceiveMoney
 } from "react-icons/gi";
 import {
-  MdOutlineTexture
-} from 'react-icons/md';
+  GrUpgrade
+} from "react-icons/gr";
 import {
-  TbRuler,
-  TbRulerMeasure,
-  TbTexture
+  MdGrass,
+  MdOutlineTexture
+} from "react-icons/md";
+import {
+  TbRuler
 } from "react-icons/tb";
+import {
+  WiStars,
+} from "react-icons/wi";
 
 // Icon Map
 const IconMap = {
   // Measurement Icons
   TbRuler,
   GiBandageRoll,
-  // Live Grass Icons
-  TbTexture,
-  GiFallingLeaf,
-  TbRulerMeasure,
   // Artificial Grass Icons
-  MdOutlineTexture,
+  // 15mm
+  GiGolfTee,
+  GiGolfFlag,
+  GrUpgrade,
+  // 25mm
+  GiReceiveMoney,
   FaCloudSunRain,
   GiGardeningShears,
+  // 30mm
+  FaRegThumbsUp,
+  MdOutlineTexture,
+  FaHandSparkles,
+  // 35mm
+  GiHighGrass,
+  GiBarefoot,
+  GiGrass,
+  // 40mm
+  WiStars,
+  FaRegGrinStars,
+  MdGrass,
 };
 
 export default function ProductCard({ product }) {
+  
+  // Helper function to convert base64 string to data URI
+  const getImageSrc = (imageData) => {
+    if (!imageData) return '/images/shop/ArtificialGrassTexture.jpg';
+    // If it's already a data URI or URL, return as is
+    if (imageData.startsWith('data:') || imageData.startsWith('http') || imageData.startsWith('/')) {
+      return imageData;
+    }
+    // If it's a base64 string, convert to data URI
+    // Try to detect image type, default to jpeg
+    const imageType = imageData.match(/^data:image\/(\w+);base64,/) 
+      ? imageData.split(';')[0].split('/')[1] 
+      : 'jpeg';
+    // If it already has the data URI prefix, return as is
+    if (imageData.startsWith('data:')) {
+      return imageData;
+    }
+    // Otherwise, add the data URI prefix
+    return `data:image/${imageType};base64,${imageData}`;
+  };
+  const imageSrc = product.images?.[0] ? getImageSrc(product.images[0]) : '/images/shop/ArtificialGrassTexture.jpg';
+
   return (
     <div
       className="block overflow-hidden bg-[#FFFFFF] rounded-lg lg:rounded-xl shadow-lg"
@@ -44,10 +93,13 @@ export default function ProductCard({ product }) {
     >
 
       {/* Cover Image */}
-      <img
-        src={product.images[0]}
+      <Image
+        src={imageSrc}
         alt={product.name}
         className="object-cover aspect-4/3 w-full"
+        width={800}
+        height={600}
+        unoptimized={imageSrc.startsWith('data:')} // Disable optimization for base64 images
       />
 
       {/* Product Details BEGINS */}

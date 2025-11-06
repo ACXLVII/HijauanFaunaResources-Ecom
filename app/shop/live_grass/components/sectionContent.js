@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { headers } from 'next/headers';
 import ProductCard from './sectionProductCard'; // adjust path if needed
 
@@ -7,8 +9,6 @@ export default async function SectionContent() {
   const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
   const res = await fetch(`${protocol}://${host}/api/live_grass`, { cache: 'no-store' });
   const products = await res.json();
-
-
 
   return (
     <div className="bg-[#000000]/50">

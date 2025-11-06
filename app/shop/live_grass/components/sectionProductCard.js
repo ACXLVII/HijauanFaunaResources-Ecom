@@ -7,13 +7,10 @@ import {
   BiSolidLeaf
 } from 'react-icons/bi';
 import {
-  FaCloudSunRain
-} from 'react-icons/fa';
-import {
   GiBandageRoll,
   GiBarefoot,
+  GiDesert,
   GiFallingLeaf,
-  GiGardeningShears,
   GiGrass,
   GiHighGrass,
   GiPalmTree
@@ -21,9 +18,6 @@ import {
 import {
   IoSparklesSharp
 } from 'react-icons/io5';
-import {
-  MdOutlineTexture
-} from 'react-icons/md';
 import {
   PiPlantBold,
   PiScissorsFill,
@@ -39,25 +33,23 @@ const IconMap = {
   // Measurements
   TbRuler,
   GiBandageRoll,
-  // Live
+  // Live Grass Icons
+  // Japanese
   TbTexture,
   GiFallingLeaf,
-  PiSunFill,
-  //
+  GiDesert,
+  // Philippine
   IoSparklesSharp,
   PiScissorsFill,
-  //
+  PiSunFill,
+  // Pearl
   PiPlantBold,
   GiPalmTree,
   GiGrass,
-  //
+  // Cow
   BiSolidLeaf,
   GiBarefoot,
   GiHighGrass,
-  // Artificial
-  MdOutlineTexture,
-  FaCloudSunRain,
-  GiGardeningShears,
 };
 
 export default function ProductCard({ product }) {

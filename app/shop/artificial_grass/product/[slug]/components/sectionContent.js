@@ -7,35 +7,61 @@ import PricingCalculator from './subComponents/sectionPricingCalculator';
 
 // Icon Imports
 import {
-  FaCloudSunRain
+  FaCloudSunRain,
+  FaHandSparkles,
+  FaRegGrinStars,
+  FaRegThumbsUp
 } from 'react-icons/fa';
 import {
   GiBandageRoll,
-  GiFallingLeaf,
-  GiGardeningShears
+  GiBarefoot,
+  GiGardeningShears,
+  GiGolfFlag,
+  GiGolfTee,
+  GiGrass,
+  GiHighGrass,
+  GiReceiveMoney
 } from "react-icons/gi";
 import {
-  MdOutlineTexture
-} from 'react-icons/md';
+  GrUpgrade
+} from "react-icons/gr";
 import {
-  TbRuler,
-  TbRulerMeasure,
-  TbTexture
+  MdGrass,
+  MdOutlineTexture
+} from "react-icons/md";
+import {
+  TbRuler
 } from "react-icons/tb";
+import {
+  WiStars,
+} from "react-icons/wi";
 
 // Icon Map
 const IconMap = {
   // Measurement Icons
   TbRuler,
   GiBandageRoll,
-  // Live Grass Icons
-  TbTexture,
-  GiFallingLeaf,
-  TbRulerMeasure,
   // Artificial Grass Icons
-  MdOutlineTexture,
+  // 15mm
+  GiGolfTee,
+  GiGolfFlag,
+  GrUpgrade,
+  // 25mm
+  GiReceiveMoney,
   FaCloudSunRain,
   GiGardeningShears,
+  // 30mm
+  FaRegThumbsUp,
+  MdOutlineTexture,
+  FaHandSparkles,
+  // 35mm
+  GiHighGrass,
+  GiBarefoot,
+  GiGrass,
+  // 40mm
+  WiStars,
+  FaRegGrinStars,
+  MdGrass,
 };
 
 /**

@@ -1,3 +1,8 @@
+'use client'
+
+import React from 'react';
+
+// Icon Imports
 import { TbGardenCart } from "react-icons/tb";
 
 export default function SectionHeading() {
