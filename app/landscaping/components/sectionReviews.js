@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from "react";
+import React, { useState } from "react";
+import Image from 'next/image';
 
 const reviews = [
   {
@@ -98,10 +99,12 @@ function ReviewCard({ review }) {
             }
           }}
         >
-          <img
+          <Image
             src={images[view]}
             alt={view}
             className="object-cover aspect-16/9 w-full transition-transform duration-500 group-hover:scale-200 lg:group-hover:scale-200"
+            width={800}
+            height={600}
             style={{ pointerEvents: showOverlay ? "none" : "auto" }}
             onClick={() => {
               if (window.innerWidth < 1024) setShowImageOverlay(true);
@@ -124,7 +127,13 @@ function ReviewCard({ review }) {
               className="fixed inset-0 z-100 flex items-center justify-center bg-black/80"
               onClick={() => setShowImageOverlay(false)}
             >
-              <img src={images[view]} alt={view} className="max-h-full max-w-full shadow-lg" />
+              <Image
+                src={images[view]}
+                alt={view}
+                className="max-h-full max-w-full shadow-lg"
+                width={800}
+                height={600}
+              />
             </div>
           )}
         </div>

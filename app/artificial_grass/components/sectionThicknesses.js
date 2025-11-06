@@ -1,54 +1,53 @@
 'use client'
 
 import React from 'react';
+import Image from 'next/image';
 
 export default function SectionThickness() {
   return (
-    <div className="bg-[#000000]/50">
-      <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-16 lg:py-32">
+    <div className="bg-[#FFFFFF]">
+      <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto pt-8 lg:pt-16 pb-16 lg:pb-32">
         
         {/* Heading */}
-        <h1 className="w-fit mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-balance text-3xl lg:text-4xl text-[#FFFFFF]">
+        <h1 className="mb-8 lg:mb-16 font-bold tracking-tight text-balance text-3xl lg:text-4xl text-[#101828]">
           Thickness Options
         </h1>
-
-        {/* Text */}
-        <p className="w-fit mb-8 lg:mb-16 p-2 bg-[#000000]/70 text-balance text-md lg:text-lg text-[#EEEEEE]">
-          Available for both Economy and Premium grades.
-        </p>
 
         {/* Thickness Grid BEGINS */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           
-          {/* 20 mm */}
+          {/* 15 mm Golf */}
           <div className="overflow-hidden flex flex-col rounded-lg lg:rounded-xl shadow-lg">
-            <img
-              src="/images/artificial_grass/thicknesses/20mm.jpg"
-              alt="20mm"
+            <Image
+              src="/images/artificial_grass/thicknesses/15mmGolf.jpg"
+              alt="15mm Golf"
               className="object-cover aspect-4/3 w-full"
+              width={800}
+              height={600}
             />
-            <div className="p-4 lg:p-8 bg-[#C39533]">
+            <div className="min-h-full self-stretch p-4 lg:p-8 bg-[#C39533]">
               <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
-                20 mm
+                15 mm Golf
               </h1>
               <p className="p-2 mb-2 lg:mb-4 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
-                Looking for a neat, low-maintenance lawn? 20mm artificial grass offers a clean, trimmed look that’s perfect for balconies, rooftops, and indoor decor. Lightweight
-                and easy to install, it’s ideal for tight spaces and light foot traffic.
+                Golf course quality grass for a professional look. This is the most durable and realistic option for golf courses. It is also the most expensive option.
               </p>
               <p className="p-2 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
-                <span className="font-bold">Best for:</span> balconies, decorative use, low-traffic areas.
+                <span className="font-bold">Best for:</span> balconies, decorative use, golf courses.
               </p>
             </div>
           </div>
           
           {/* 25 mm */}
           <div className="overflow-hidden flex flex-col rounded-lg lg:rounded-xl shadow-lg">
-            <img
+            <Image
               src="/images/artificial_grass/thicknesses/25mm.jpg"
-              alt="25 mm"
+              alt="25mm"
               className="object-cover aspect-4/3 w-full"
+              width={800}
+              height={600}
             />
-            <div className="p-4 lg:p-8 bg-[#C39533]">
+            <div className="min-h-full self-stretch p-4 lg:p-8 bg-[#C39533]">
               <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
                 25 mm
               </h1>
@@ -64,12 +63,14 @@ export default function SectionThickness() {
           
           {/* 30 mm */}
           <div className="overflow-hidden flex flex-col rounded-lg lg:rounded-xl shadow-lg">
-            <img
+            <Image
               src="/images/artificial_grass/thicknesses/30mm.jpg"
-              alt="30 mm"
+              alt="30mm"
               className="object-cover aspect-4/3 w-full"
+              width={800}
+              height={600}
             />
-            <div className="p-4 lg:p-8 bg-[#C39533]">
+            <div className="min-h-full self-stretch p-4 lg:p-8 bg-[#C39533]">
               <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
                 30 mm
               </h1>
@@ -85,12 +86,14 @@ export default function SectionThickness() {
           
           {/* 35 mm */}
           <div className="overflow-hidden flex flex-col rounded-lg lg:rounded-xl shadow-lg">
-            <img
+            <Image
               src="/images/artificial_grass/thicknesses/35mm.jpg"
-              alt="35 mm"
+              alt="35mm"
               className="object-cover aspect-4/3 w-full"
+              width={800}
+              height={600}
             />
-            <div className="p-4 lg:p-8 bg-[#C39533]">
+            <div className="min-h-full self-stretch p-4 lg:p-8 bg-[#C39533]">
               <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
                 35 mm
               </h1>
@@ -106,12 +109,14 @@ export default function SectionThickness() {
           
           {/* 40 mm */}
           <div className="overflow-hidden flex flex-col rounded-lg lg:rounded-xl shadow-lg">
-            <img
+            <Image
               src="/images/artificial_grass/thicknesses/40mm.jpg"
-              alt="40 mm"
+              alt="40mm"
               className="object-cover aspect-4/3 w-full"
+              width={800}
+              height={600}
             />
-            <div className="p-4 lg:p-8 bg-[#C39533]">
+            <div className="min-h-full self-stretch p-4 lg:p-8 bg-[#C39533]">
               <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
                 40 mm
               </h1>
@@ -121,27 +126,6 @@ export default function SectionThickness() {
               </p>
               <p className="p-2 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
                 <span className="font-bold">Best for:</span> designer lawns, premium properties, barefoot comfort.
-              </p>
-            </div>
-          </div>
-          
-          {/* 45 mm */}
-          <div className="overflow-hidden flex flex-col rounded-lg lg:rounded-xl shadow-lg">
-            <img
-              src="/images/artificial_grass/thicknesses/45mm.jpg"
-              alt="45 mm"
-              className="object-cover aspect-4/3 w-full"
-            />
-            <div className="p-4 lg:p-8 bg-[#C39533]">
-              <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
-                45 mm
-              </h1>
-              <p className="p-2 mb-2 lg:mb-4 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
-                The most luxurious option in the range, this ultra-plush grass delivers a premium experience. With extra height and volume, it delivers unmatched softness and visual
-                appeal, turning any outdoor area into a lush, green retreat.
-              </p>
-              <p className="p-2 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
-                <span className="font-bold">Best for:</span> show gardens, villas, rooftop lounges, premium projects.
               </p>
             </div>
           </div>

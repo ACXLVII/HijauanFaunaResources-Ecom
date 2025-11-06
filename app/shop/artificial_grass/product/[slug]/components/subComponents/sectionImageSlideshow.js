@@ -1,4 +1,7 @@
+'use client'
+
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 // Icon Imports
 import { IoCloseOutline } from "react-icons/io5";
@@ -14,10 +17,12 @@ function SectionImageSlideshow({ images }) {
       
       {/* Preview */}
       <div className="relative aspect-[4/3] w-full">
-        <img
+        <Image
           src={images[selectedIndex]}
           alt={`Preview ${selectedIndex + 1}`}
           className="absolute inset-0 w-full h-full object-cover rounded-md lg:rounded-lg cursor-zoom-in"
+          width={800}
+          height={600}
           onClick={() => setModalOpen(true)}
         />
       </div>
@@ -25,7 +30,7 @@ function SectionImageSlideshow({ images }) {
       {/* Gallery */}
       <div className="overflow-x-auto flex gap-2 lg:gap-4 mt-2 lg:mt-4 p-0.5">
         {images.map((img, idx) => (
-          <img
+          <Image
             key={img}
             src={img}
             alt={`Thumbnail ${idx + 1}`}
@@ -34,6 +39,8 @@ function SectionImageSlideshow({ images }) {
                 ? 'ring-2 ring-[#C39533]'
                 : 'opacity-50 cursor-pointer'
             }`}
+            width={800}
+            height={600}
             onClick={() => setSelectedIndex(idx)}
           />
         ))}
@@ -55,10 +62,12 @@ function SectionImageSlideshow({ images }) {
             >
               <IoCloseOutline className="size-10 lg:size-12 text-[#FFFFFF] active:text-[#E1C46A] cursor-pointer"/>
             </button>
-            <img
+            <Image
               src={images[selectedIndex]}
               alt={`Enlarged ${selectedIndex + 1}`}
               className="object-contain max-h-[90vh] max-w-[90vw]"
+              width={800}
+              height={600}
             />
           </div>
         </div>

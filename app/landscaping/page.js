@@ -12,7 +12,7 @@ export default function ServiceLandscaping() {
       <Header />
       
       <main className="mt-21"> {/* padding for header + green bar */}
-        <Heading />
+        {/* <Heading /> */}
         <Marketing />
         <Reviews />
         <Contact />

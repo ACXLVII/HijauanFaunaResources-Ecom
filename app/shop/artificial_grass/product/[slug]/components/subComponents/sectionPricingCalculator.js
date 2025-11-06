@@ -1,6 +1,9 @@
+'use client'
+
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import toast, { Toaster } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 import { useCart } from '@/app/hooks/useCart';
 
 // Icon Imports

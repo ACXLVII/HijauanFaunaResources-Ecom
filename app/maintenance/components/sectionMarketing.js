@@ -1,3 +1,8 @@
+'use client'
+
+import React from 'react';
+import Image from 'next/image';
+
 export default function SectionMarketing() {
   return (
     <div className="bg-[#000000]/50">
@@ -19,10 +24,12 @@ export default function SectionMarketing() {
           
           {/* Feature 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-            <img
+            <Image
               src="/images/maintenance/marketing/feature1.jpg"
               alt="Live Grass"
               className="object-cover aspect-4/3 w-full rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
             <div className="lg:flex lg:flex-col lg:justify-center">
               <h2 className="w-fit mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
@@ -37,10 +44,12 @@ export default function SectionMarketing() {
 
           {/* Feature 2 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-            <img
+            <Image
               src="/images/maintenance/marketing/feature2.jpg"
               alt="Live Grass"
               className="order-1 lg:order-2 object-cover aspect-4/3 w-full rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
             <div className="order-2 lg:order-1 lg:flex lg:flex-col lg:justify-center">
               <h2 className="w-fit mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-center text-2xl lg:text-3xl text-[#FFFFFF]">
@@ -55,10 +64,12 @@ export default function SectionMarketing() {
 
           {/* Feature 3 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-            <img
+            <Image
               src="/images/maintenance/marketing/feature3.jpg"
               alt="Live Grass"
               className="object-cover aspect-4/3 w-full rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
             <div className="lg:flex lg:flex-col lg:justify-center">
               <h2 className="w-fit mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">

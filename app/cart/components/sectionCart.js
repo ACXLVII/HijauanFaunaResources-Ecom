@@ -1,7 +1,9 @@
 'use client'
 
+import React, { useMemo } from 'react';
+import Image from 'next/image';
+
 import { useCart } from '@/app/hooks/useCart';
-import { useMemo } from 'react';
 
 // Icon Imports
 import { TbGardenCartOff } from "react-icons/tb";
@@ -34,14 +36,16 @@ export default function SectionCart() {
                 </li>
               ) : (
                 cart.map((product, productIdx) => ( // Product Card
-                  <li key={product.cartId || productIdx} className="overflow-hidden flex flex-row p-2 lg:p-4 rounded-md lg:rounded-lg border border-[#C39533]">
+                  <li key={product.cartId || productIdx} className="overflow-hidden flex flex-row p-2 lg:p-4 rounded-md lg:rounded-lg border-2 border-[#C39533]">
                     
                     {/* Product Image */}
                     <div className="overflow-hidden relative aspect-square mr-2 lg:mr-4 rounded-md lg:rounded-lg border-2 border-[#C39533]">
-                      <img
+                      <Image
                         src={product.image}
                         alt={product.name}
                         className="absolute inset-0 object-cover w-full h-full"
+                        width={100}
+                        height={100}
                       />
                     </div>
                     

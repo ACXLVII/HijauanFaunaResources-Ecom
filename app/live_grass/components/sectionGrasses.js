@@ -1,6 +1,9 @@
 'use client'
 
 import React from 'react';
+import Image from 'next/image';
+
+// Icon Imports
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { TbAugmentedReality2, TbGardenCart } from "react-icons/tb";
 
@@ -51,10 +54,12 @@ function ImageSlideshow({ images }) {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <img
+      <Image
         src={images[index]}
         alt="Slideshow"
         className="object-cover aspect-4/3 w-full"
+        width={800}
+        height={600}
       />
       {images.length > 1 && (
         <>

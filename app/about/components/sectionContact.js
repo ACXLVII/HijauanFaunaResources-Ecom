@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 import toast, { Toaster } from 'react-hot-toast';
 
 // Firebase imports

@@ -11,7 +11,7 @@ export default function TipsPage() {
       <Header />
       
       <main className="pt-21"> {/* padding for header + green bar */}
-        <Heading />
+        {/* <Heading /> */}
         <TipsGrass />
         <TipsPlants />
       </main>

@@ -1,3 +1,8 @@
+'use client'
+
+import React from 'react';
+import Image from 'next/image';
+
 export default function SectionMarketing() {
   return (
     <div className="bg-[#000000]/50">
@@ -19,10 +24,12 @@ export default function SectionMarketing() {
           
           {/* Feature 1 */}
           <div className="">
-            <img
+            <Image
               src="/images/live_grass/marketing/feature1.jpg"
               alt="Live Grass"
               className="object-cover aspect-4/3 w-full mb-2 lg:mb-4 rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
             <h2 className="inline-block mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Authentic Green, Genuine Appeal
@@ -36,10 +43,12 @@ export default function SectionMarketing() {
 
           {/* Feature 2 */}
           <div className="">
-            <img
+            <Image
               src="/images/live_grass/marketing/feature2.jpg"
               alt="Live Grass"
               className="object-cover aspect-4/3 w-full mb-2 lg:mb-4 rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
             <h2 className="inline-block mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Your Daily Dose of Green
@@ -52,10 +61,12 @@ export default function SectionMarketing() {
 
           {/* Feature 3 */}
           <div className="">
-            <img
+            <Image
               src="/images/live_grass/marketing/feature3.jpg"
               alt="Live Grass"
               className="object-cover aspect-4/3 w-full mb-2 lg:mb-4 rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
             <h2 className="inline-block mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Premium Look, Prestige Feel

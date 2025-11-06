@@ -1,4 +1,8 @@
+'use client'
+
 import React from 'react';
+
+// Icon Imports
 import { TbRuler, TbRulerMeasure } from "react-icons/tb";
 import { GiBandageRoll } from "react-icons/gi";
 

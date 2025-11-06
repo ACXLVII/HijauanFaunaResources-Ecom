@@ -12,7 +12,7 @@ export default function ServiceLiveGrass() {
       <Header />
       
       <main className="pt-21"> {/* padding for header + green bar */}
-        <Heading />
+        {/* <Heading /> */}
         <Marketing />
         <Grasses />
         <Contact />

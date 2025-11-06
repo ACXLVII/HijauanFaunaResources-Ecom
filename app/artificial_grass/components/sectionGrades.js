@@ -1,6 +1,9 @@
 'use client'
 
 import React from 'react';
+import Image from 'next/image';
+
+// Icon Imports
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { TbAugmentedReality2, TbGardenCart } from "react-icons/tb";
 
@@ -45,16 +48,19 @@ function ImageSlideshow({ images }) {
 
   return (
     <div
-      className="relative flex items-center justify-center aspect-4/3 w-full bg-[#000000]"
+      className="overflow-hidden relative flex items-center justify-center aspect-4/3 w-full bg-[#000000]"
       style={{ touchAction: 'pan-y' }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <img
+      <Image
         src={images[index]}
         alt="Slideshow"
-        className="object-cover aspect-4/3 w-full"
+        className="object-center object-cover"
+        fill
+        sizes="(max-width: 1024px) 100vw, 50vw"
+        priority={index === 0}
       />
       {images.length > 1 && (
         <>
@@ -79,7 +85,7 @@ function ImageSlideshow({ images }) {
 export default function SectionGrades() {
   return (
     <div className="bg-[#FFFFFF]">
-      <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto py-16 lg:py-32">
+      <div className="max-w-[90vw] lg:max-w-[80vw] mx-auto pt-16 lg:pt-32 pb-8 lg:pb-16">
         
         {/* Heading */}
         <h1 className="mb-8 lg:mb-16 font-bold tracking-tight text-balance text-3xl lg:text-4xl text-[#101828]">

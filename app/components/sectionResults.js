@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
+import Image from 'next/image';
 
 // Icon Imports
 import { IoCloseOutline } from "react-icons/io5";
@@ -60,10 +61,12 @@ export default function SectionResults() {
               onClick={() => setSelectedImage(category)}
               className="overflow-hidden rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
             >
-              <img
+              <Image
                 className="object-cover aspect-4/3 w-full"
                 src={category.imageSrc}
                 alt={category.imageAlt}
+                width={800}
+                height={600}
               />
             </button>
           ))}
@@ -85,10 +88,12 @@ export default function SectionResults() {
               >
                 <IoCloseOutline />
               </button>
-              <img
+              <Image
                 src={selectedImage.imageSrc}
                 alt={selectedImage.imageAlt}
                 className="object-contain max-h-[90vh] max-w-[90vw] rounded-lg"
+                width={800}
+                height={600}
               />
             </div>
           </div>

@@ -1,3 +1,8 @@
+'use client'
+
+import React from 'react';
+import Image from 'next/image';
+
 export default function SectionMarketing() {
   return (
     <div className="bg-[#000000]/50">
@@ -19,11 +24,18 @@ export default function SectionMarketing() {
           
           {/* Feature 1 */}
           <div className="">
-            <img
+            <Image
               src="/images/artificial_grass/marketing/feature1.jpg"
               alt="Artificial Grass"
               className="object-cover aspect-4/3 w-full mb-2 lg:mb-4 rounded-lg lg:rounded-xl shadow-lg"
+              width={800}
+              height={600}
             />
+            {/* <img
+              src="/images/artificial_grass/marketing/feature1.jpg"
+              alt="Artificial Grass"
+              className="object-cover aspect-4/3 w-full mb-2 lg:mb-4 rounded-lg lg:rounded-xl shadow-lg"
+            /> */}
             <h2 className="inline-block mb-2 lg:mb-4 p-2 bg-[#000000]/70 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Green, All Year Round
             </h2>

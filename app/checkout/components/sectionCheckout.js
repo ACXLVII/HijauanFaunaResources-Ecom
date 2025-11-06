@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -243,10 +244,12 @@ export default function SectionCheckout() {
               ) : (
                 productsInCart.map((product, idx) => (
                   <li key={idx} className="flex items-center py-2 lg:py-4">
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.name}
                       className="size-16 mr-2 lg:mr-4 rounded-md object-cover border-2 border-[#C39533]"
+                      width={64}
+                      height={64}
                     />
                     <div className="flex-1">
                       <h2 className="font-bold tracking-tight text-md lg:text-lg text-[#101828]">

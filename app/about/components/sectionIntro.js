@@ -1,3 +1,8 @@
+'use client'
+
+import React from 'react';
+import Image from 'next/image';
+
 export default function SectionIntro() {
   return (
     <div className="bg-[#000000]/50">
@@ -19,9 +24,11 @@ export default function SectionIntro() {
           
           {/* Feature 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-            <img
+            <Image
               src="/images/about/weDaBest.jpg"
-              alt="We Da Best"
+              alt="Hijauan Fauna Resources"
+              width={800}
+              height={600}
               className="object-cover aspect-4/3 w-full rounded-lg lg:rounded-xl shadow-lg"
             />
             <div className="lg:flex lg:flex-col lg:justify-center">
