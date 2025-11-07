@@ -8,6 +8,11 @@ import { useCart } from '@/app/hooks/useCart';
 
 // Icon Imports
 import {
+  AiOutlineClose,
+  AiOutlinePlus,
+  AiOutlineMinus
+} from 'react-icons/ai';
+import {
   FaCloudSunRain,
   FaHandSparkles,
   FaRegGrinStars,
@@ -42,6 +47,8 @@ const IconMap = {
   // Measurement Icons
   TbRuler,
   GiBandageRoll,
+  // Close Icon
+  AiOutlineClose,
   // Artificial Grass Icons
   // 15mm
   GiGolfTee,
@@ -105,36 +112,143 @@ export default function PricingCalculator({
   const selectedGroup = groupsWithArea[selectedIdx];
 
   const [userArea, setUserArea] = useState('');
+  const [userPieces, setUserPieces] = useState('');
   const [touched, setTouched] = useState(false);
+  const [touchedPieces, setTouchedPieces] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
   const [showErrors, setShowErrors] = useState(false);
   const { addToCart } = useCart();
 
+  const handleMeasurementChange = (idx) => {
+    if (idx !== selectedIdx) { // Only reset if switching to a different measurement
+      setUserArea('');
+      setUserPieces('');
+      setTouched(false);
+      setTouchedPieces(false);
+      setShowErrors(false);
+    }
+    setSelectedIdx(idx);
+  };
+
   const handleAreaChange = (e) => {
     let val = e.target.value.replace(/[^\d.]/g, ''); // Allow digits and decimal points
-    // Prevent multiple decimal points
     const parts = val.split('.');
-    if (parts.length > 2) {
+    if (parts.length > 2) { // Prevent multiple decimal points
       val = parts[0] + '.' + parts.slice(1).join('');
     }
-    // Remove leading zeros but keep single zero before decimal
-    val = val.replace(/^0+/, '') || '0';
+    val = val.replace(/^0+/, '') || '0'; // Remove leading zeros but keep single zero before decimal
     setUserArea(val);
+
+    // Auto-update pieces if area is valid and pieces field is not focused
+    if (val && focusedField !== 'pieces') {
+      const areaVal = parseFloat(val);
+      if (!isNaN(areaVal) && areaVal > 0) {
+        if (selectedGroup.sizeType === 'sqft' || selectedGroup.sizeType === 'square foot') {
+          setUserPieces(areaVal.toString());
+        } else {
+          const calculatedPieces = Math.ceil(areaVal / selectedGroup.area);
+          setUserPieces(calculatedPieces.toString());
+        }
+      } else if (areaVal === 0 || isNaN(areaVal)) {
+        // Clear pieces if area is invalid or zero
+        setUserPieces('');
+      }
+    }
+  };
+
+  const handlePiecesChange = (e) => {
+    let val = e.target.value.replace(/[^\d]/g, ''); // Only integers for pieces
+    val = val.replace(/^0+/, '') || '0';
+    setUserPieces(val);
+    
+    // Auto-update area if pieces is valid and area field is not focused
+    if (val && focusedField !== 'area') {
+      const piecesVal = parseInt(val, 10);
+      if (!isNaN(piecesVal) && piecesVal > 0) {
+        if (selectedGroup.sizeType === 'sqft' || selectedGroup.sizeType === 'square foot') {
+          setUserArea(piecesVal.toString());
+        } else {
+          const calculatedArea = piecesVal * selectedGroup.area;
+          setUserArea(calculatedArea.toFixed(2));
+        }
+      } else if (piecesVal === 0 || isNaN(piecesVal)) {
+        // Clear area if pieces is invalid or zero
+        setUserArea('');
+      }
+    }
+  };
+
+  const handlePiecesIncrement = () => {
+    const current = parseInt(userPieces || '0', 10);
+    const newVal = (current + 1).toString();
+    setUserPieces(newVal);
+    setTouchedPieces(true);
+    
+    // Auto-update area
+    if (selectedGroup.sizeType === 'sqft' || selectedGroup.sizeType === 'square foot') {
+      setUserArea(newVal);
+    } else {
+      const calculatedArea = (current + 1) * selectedGroup.area;
+      setUserArea(calculatedArea.toFixed(2));
+    }
+  };
+
+  const handlePiecesDecrement = () => {
+    const current = parseInt(userPieces || '0', 10);
+    if (current > 0) {
+      const newVal = (current - 1).toString();
+      setUserPieces(newVal);
+      setTouchedPieces(true);
+      
+      // Auto-update area
+      if (selectedGroup.sizeType === 'sqft' || selectedGroup.sizeType === 'square foot') {
+        setUserArea(newVal);
+      } else {
+        const calculatedArea = (current - 1) * selectedGroup.area;
+        setUserArea(calculatedArea.toFixed(2));
+      }
+    } else if (current === 0) {
+      // Clear area if pieces becomes 0
+      setUserArea('');
+      setUserPieces('');
+    }
   };
 
   const area = parseFloat(userArea); // Use parseFloat instead of parseInt
   const validArea = !isNaN(area) && area > 0;
   
-  // Error handling similar to checkout component
-  const shouldShowError = focusedField !== 'area' && (showErrors || (touched && userArea.trim().length > 0)) && (!userArea || !validArea);
-  const error = shouldShowError ? 'Please enter a valid number bigger than 0.' : '';
+  const pieces = parseInt(userPieces || '0', 10);
+  const validPieces = !isNaN(pieces) && pieces > 0;
+  
+  // Error handling
+  const shouldShowAreaError = focusedField !== 'area' && (showErrors || (touched && userArea.trim().length > 0)) && (!userArea || !validArea);
+  const areaError = shouldShowAreaError ? 'Please enter a valid number bigger than 0.' : '';
+  
+  const shouldShowPiecesError = focusedField !== 'pieces' && (showErrors || (touchedPieces && userPieces.trim().length > 0)) && (!userPieces || !validPieces);
+  const piecesError = shouldShowPiecesError ? 'Please enter a valid number bigger than 0.' : '';
 
   // Calculation for selected unit
   let quantity = 0;
   let totalAreaCovered = 0;
   let extraArea = 0;
   let totalPrice = 0;
-  if (validArea) {
+  let calculatedArea = 0;
+
+  if (validPieces) {
+    // Use pieces if valid
+    quantity = pieces;
+    if (selectedGroup.sizeType === 'sqft' || selectedGroup.sizeType === 'square foot') {
+      totalAreaCovered = pieces;
+      calculatedArea = pieces;
+      extraArea = 0;
+    } else {
+      totalAreaCovered = pieces * selectedGroup.area;
+      calculatedArea = totalAreaCovered;
+      extraArea = validArea ? totalAreaCovered - area : 0;
+    }
+    totalPrice = quantity * selectedGroup.price;
+  } else if (validArea) {
+    // Fall back to area calculation if pieces not set
     if (selectedGroup.sizeType === 'sqft' || selectedGroup.sizeType === 'square foot') {
       quantity = area;
       totalAreaCovered = area;
@@ -149,11 +263,16 @@ export default function PricingCalculator({
   }
 
   const handleAddToCart = () => {
-    if (!userArea || !validArea) {
+    // Require either area or pieces to be valid
+    if ((!userArea || !validArea) && (!userPieces || !validPieces)) {
       setTouched(true);
+      setTouchedPieces(true);
       setShowErrors(true);
       return;
     }
+
+    const finalArea = validPieces ? calculatedArea : area;
+
     addToCart({
       category,
       id,
@@ -164,10 +283,12 @@ export default function PricingCalculator({
       priceID: selectedGroup.priceID,
       measurement: selectedGroup.measurement,
       sizeType: selectedGroup.sizeType,
-      requestedArea: area,
+      requestedArea: finalArea,
     });
     toast.success(`Added to cart! Total: RM ${totalPrice.toFixed(2)}`);
   };
+
+  const hasValidInput = validArea || validPieces;
 
   return (
     <div className="space-y-4 lg:space-y-8 p-4 lg:p-8 bg-[#FFFFFF] rounded-lg lg:rounded-xl shadow-lg">
@@ -189,7 +310,7 @@ export default function PricingCalculator({
                 ${selectedIdx === idx ? 'text-[#4A5565] shadow-lg border-2 border-[#C39533]' : 'text-[#AAAAAA] border-2 border-[#AAAAAA] cursor-pointer'}
                 rounded-md lg:rounded-lg
               `}
-              onClick={() => setSelectedIdx(idx)}
+              onClick={() => handleMeasurementChange(idx)}
               type="button"
             >
               <div className="flex flex-col items-center justify-center">
@@ -221,11 +342,11 @@ export default function PricingCalculator({
       <div className="">
 
         <div className="mb-2 lg:mb-4 font-semibold text-md lg:text-lg text-[#101828]">
-          How much area do you need?
+          What's your area?
         </div>
 
-        <div className="flex flex-col">
-          <label className="flex-1">
+        <div className="relative flex flex-col">
+          <label className="relative flex-1">
           <input
             id="userInputSqft"
             name="userInputSqft"
@@ -235,7 +356,7 @@ export default function PricingCalculator({
             className={`h-12 w-full bg-[#FFFFFF] text-center text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
               touched && validArea 
                 ? 'border-[#C39533]' 
-                : shouldShowError 
+                : shouldShowAreaError
                   ? 'border-red-500' 
                   : 'border-[#AAAAAA] focus:border-[#C39533]'
             }`}
@@ -251,19 +372,129 @@ export default function PricingCalculator({
             aria-label="Total area needed, in square feet (sq ft)."
             onWheel={e => e.target.blur()}
           />
+          {userArea && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setUserArea('');
+                setUserPieces('');
+                setTouched(false);
+                setTouchedPieces(false);
+                setShowErrors(false);
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-[#AAAAAA] hover:text-[#4A5565] transition-colors cursor-pointer"
+              aria-label="Clear input"
+            >
+              <AiOutlineClose className="size-6" />
+            </button>
+          )}
           </label>
         </div>
 
-        {error && (
+        {areaError && (
           <div role="alert" className="mt-1 lg:mt-2 text-justify text-sm lg:text-md text-red-500">
-            {error}
+            {areaError}
           </div>
         )}
 
       </div>
 
+      <div className="flex items-center justify-center">
+        <hr className="w-full mr-4 lg:mr-8 border-t-2 border-[#C39533]" />
+        <p className="font-bold tracking-tight text-center text-md lg:text-lg text-[#101828]">OR</p>
+        <hr className="w-full ml-4 lg:ml-8 border-t-2 border-[#C39533]" />
+      </div>
+
+      {/* Pieces Input */}
+      <div className="">
+        <div className="mb-2 lg:mb-4 font-semibold text-md lg:text-lg text-[#101828]">
+          How many pieces do you want?
+        </div>
+
+        <div className="relative flex items-center gap-2 lg:gap-4">
+          <button
+            type="button"
+            onClick={handlePiecesDecrement}
+            disabled={!userPieces || pieces <= 0}
+            className={`
+              flex items-center justify-center h-12 w-12 rounded-md lg:rounded-lg border-2 transition-colors
+              ${!userPieces || pieces <= 0
+                ? 'border-[#AAAAAA] bg-[#F5F5F5] text-[#AAAAAA] cursor-not-allowed'
+                : 'border-[#C39533] bg-[#FFFFFF] text-[#C39533] hover:bg-[#C39533] hover:text-[#FFFFFF] cursor-pointer'
+              }
+            `}
+            aria-label="Reduce pieces"
+          >
+            <AiOutlineMinus className="size-5 lg:size-6" />
+          </button>
+
+          <label className="relative flex-1">
+            <input
+              id="userInputPieces"
+              name="userInputPieces"
+              type="number"
+              min={0}
+              step={1}
+              className={`h-12 w-full bg-[#FFFFFF] text-center text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
+                touchedPieces && validPieces 
+                  ? 'border-[#C39533]' 
+                  : shouldShowPiecesError 
+                    ? 'border-red-500' 
+                    : 'border-[#AAAAAA] focus:border-[#C39533]'
+              }`}
+              value={userPieces}
+              onChange={handlePiecesChange}
+              onFocus={() => setFocusedField('pieces')}
+              onBlur={() => {
+                setTouchedPieces(true);
+                setFocusedField(null);
+              }}
+              placeholder="0"
+              inputMode="numeric"
+              aria-label="Number of pieces"
+              onWheel={e => e.target.blur()}
+            />
+            {userPieces && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setUserPieces('');
+                  setUserArea('');
+                  setTouchedPieces(false);
+                  setTouched(false);
+                  setShowErrors(false);
+                }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-[#AAAAAA] hover:text-[#4A5565] transition-colors cursor-pointer"
+                aria-label="Clear input"
+              >
+                <AiOutlineClose className="size-6" />
+              </button>
+            )}
+          </label>
+
+          <button
+            type="button"
+            onClick={handlePiecesIncrement}
+            className="flex items-center justify-center h-12 w-12 rounded-md lg:rounded-lg border-2 border-[#C39533] bg-[#FFFFFF] text-[#C39533] hover:bg-[#C39533] hover:text-[#FFFFFF] transition-colors cursor-pointer"
+            aria-label="Add pieces"
+          >
+            <AiOutlinePlus className="size-5 lg:size-6" />
+          </button>
+        </div>
+
+        {piecesError && (
+          <div role="alert" className="mt-1 lg:mt-2 text-justify text-sm lg:text-md text-red-500">
+            {piecesError}
+          </div>
+        )}
+      </div>
+
       {/* Breakdown for selected unit */}
-      {validArea && (
+      {hasValidInput && (
         <>
           <hr className="border-t-2 border-[#C39533]" />
 
@@ -275,7 +506,7 @@ export default function PricingCalculator({
               <li>
                 <span className="font-bold text-[#C39533]">{quantity}</span> {selectedGroup.sizeType}(s).
               </li>
-              {selectedGroup.sizeType !== 'sqft' && selectedGroup.sizeType !== 'square foot' && extraArea > 0 && (
+              {selectedGroup.sizeType !== 'sqft' && selectedGroup.sizeType !== 'square foot' && extraArea > 0 && validArea && (
                 <li>
                   <span className="font-bold text-[#C39533]">{extraArea.toFixed(2)}</span> sqft extra will be included, since the minimum measurement of a {selectedGroup.sizeType} is ({selectedGroup.measurement}).
                 </li>
@@ -306,13 +537,13 @@ export default function PricingCalculator({
       {/* Add to Cart */}
       <button
         className={`w-full p-2 lg:p-4 font-bold text-md lg:text-lg text-[#FFFFFF] rounded-md lg:rounded-lg shadow-lg transition ${
-          !userArea || !validArea
+          !hasValidInput
             ? 'bg-[#498118]/50 cursor-not-allowed' 
             : 'bg-[#498118] cursor-pointer hover:scale-105 active:scale-95'
         }`}
         onClick={handleAddToCart}
         type="button"
-        aria-disabled={!userArea || !validArea}
+        aria-disabled={!hasValidInput}
       >
         Add to Cart
       </button>
