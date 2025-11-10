@@ -116,7 +116,7 @@ export default function SectionCart() {
             <button
               type="button"
               onClick={() => window.location.href = `/checkout`}
-              className="w-full p-2 lg:p-4 bg-[#498118] font-bold text-md lg:text-lg text-[#FFFFFF] rounded-md lg:rounded-lg shadow-lg cursor-pointer hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full p-4 bg-[#498118] font-bold text-md lg:text-lg text-[#FFFFFF] rounded-md lg:rounded-lg shadow-lg cursor-pointer hover:scale-105 active:scale-95 transition disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={cart.length === 0}
             >
               Checkout

@@ -34,11 +34,41 @@ function CheckoutSuccessContent() {
       // Parse the products from the metadata
       const products = JSON.parse(metadata.products || '[]');
       
+      // Build shippingDetails object
+      const requestShipping = metadata.requestShipping === 'true';
+      let shippingDetails = {
+        requestShipping: requestShipping,
+        address: '',
+        postcode: '',
+        city: '',
+        state: '',
+        distance: 0,
+        shippingCost: 0,
+      };
+
+      // If shipping was requested, populate shippingDetails
+      if (requestShipping && metadata.addressDetails) {
+        try {
+          const addressDetails = JSON.parse(metadata.addressDetails);
+          shippingDetails = {
+            requestShipping: true,
+            address: addressDetails.address || '',
+            postcode: addressDetails.postcode || '',
+            city: addressDetails.city || '',
+            state: addressDetails.state || '',
+            distance: parseFloat(metadata.distance || '0'),
+            shippingCost: parseFloat(metadata.shippingCost || '0'),
+          };
+        } catch (error) {
+          console.error("Error parsing addressDetails:", error);
+        }
+      }
+      
       const orderData = {
         name: metadata.customerName,
         email: metadata.customerEmail,
         phone: metadata.customerPhone,
-        requestShipping: metadata.requestShipping === 'true',
+        shippingDetails: shippingDetails,
         products: products,
         total: parseFloat(metadata.total),
         paymentStatus: sessionData.payment_status,
@@ -64,24 +94,23 @@ function CheckoutSuccessContent() {
       
       // Fetch session details and save to Firebase
       fetch(`/api/checkout-session?session_id=${sessionId}`)
-        .then(res => res.json())
-        .then(data => {
-          setSession(data);
-          setMetadata(data.metadata);
-          
-          // Save order to Firebase if payment was successful
-          if (data.payment_status === 'paid') {
-            saveOrderToFirebase(data);
-          }
-        })
-        .catch(err => {
-          console.error('Error fetching session:', err);
-          toast.error("Error retrieving payment information.");
-          setIsProcessing(false);
-        });
-      
-      // Clear cart after successful payment
-      clearCart();
+      .then(res => res.json())
+      .then(data => {
+        setSession(data);
+        setMetadata(data.metadata);
+        
+        // Save order to Firebase if payment was successful
+        if (data.payment_status === 'paid') {
+          saveOrderToFirebase(data);
+          // Clear cart ONLY after successful payment
+          clearCart();
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching session:', err);
+        toast.error("Error retrieving payment information.");
+        setIsProcessing(false);
+      });
     }
   }, [sessionId, orderSaved, isProcessing]);
 

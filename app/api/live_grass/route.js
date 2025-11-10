@@ -10,5 +10,11 @@ export async function GET() {
     data.doc_id = doc.id;
     productsArr.push({ id: doc.id, ...data });
   });
-  return NextResponse.json(productsArr);
+  
+  // Add cache headers for better performance
+  return NextResponse.json(productsArr, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400'
+    }
+  });
 }

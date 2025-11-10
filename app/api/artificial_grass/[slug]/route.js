@@ -18,5 +18,10 @@ export async function GET(request, { params }) {
   const data = doc.data();
   data.doc_id = doc.id;
 
-  return NextResponse.json(data);
+  // Add cache headers for better performance
+  return NextResponse.json(data, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400'
+    }
+  });
 }

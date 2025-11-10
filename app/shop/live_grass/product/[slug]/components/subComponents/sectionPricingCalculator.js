@@ -91,6 +91,25 @@ function parseAreaFromMeasurement(measurement) {
 export default function PricingCalculator({
   category, id, name, images, priceGroup
 }) {
+  // All hooks must be called before any conditional returns
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [userArea, setUserArea] = useState('');
+  const [userPieces, setUserPieces] = useState('');
+  const [touched, setTouched] = useState(false);
+  const [touchedPieces, setTouchedPieces] = useState(false);
+  const [focusedField, setFocusedField] = useState(null);
+  const [showErrors, setShowErrors] = useState(false);
+  const { addToCart } = useCart();
+
+  // Early return if priceGroup is missing or invalid (after hooks)
+  if (!priceGroup || !Array.isArray(priceGroup) || priceGroup.length === 0) {
+    return (
+      <div className="space-y-4 lg:space-y-8 p-4 lg:p-8 bg-[#FFFFFF] rounded-lg lg:rounded-xl shadow-lg">
+        <p className="text-center text-[#4A5565]">Loading pricing information...</p>
+      </div>
+    );
+  }
+
   // Prepare priceGroups with area and price as number
   const groupsWithArea = priceGroup.map(group => ({
     ...group,
@@ -99,16 +118,18 @@ export default function PricingCalculator({
   }));
 
   // If multiple price groups, allow selection
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const selectedGroup = groupsWithArea[selectedIdx];
+  // Ensure selectedIdx is within bounds
+  const safeSelectedIdx = Math.min(selectedIdx, groupsWithArea.length - 1);
+  const selectedGroup = groupsWithArea[safeSelectedIdx];
 
-  const [userArea, setUserArea] = useState('');
-  const [userPieces, setUserPieces] = useState('');
-  const [touched, setTouched] = useState(false);
-  const [touchedPieces, setTouchedPieces] = useState(false);
-  const [focusedField, setFocusedField] = useState(null);
-  const [showErrors, setShowErrors] = useState(false);
-  const { addToCart } = useCart();
+  // Additional safety check
+  if (!selectedGroup) {
+    return (
+      <div className="space-y-4 lg:space-y-8 p-4 lg:p-8 bg-[#FFFFFF] rounded-lg lg:rounded-xl shadow-lg">
+        <p className="text-center text-[#4A5565]">Loading pricing information...</p>
+      </div>
+    );
+  }
 
   const handleMeasurementChange = (idx) => {
     if (idx !== selectedIdx) { // Only reset if switching to a different measurement
@@ -499,13 +520,25 @@ export default function PricingCalculator({
               </li>
               {selectedGroup.sizeType !== 'sqft' && selectedGroup.sizeType !== 'square foot' && extraArea > 0 && validArea && (
                 <li>
-                  <span className="font-bold text-[#C39533]">{extraArea.toFixed(2)}</span> sqft extra will be included, since the minimum measurement of a {selectedGroup.sizeType} is ({selectedGroup.measurement}).
+                  <span className="font-bold text-[#C39533]">{extraArea.toFixed(2)}</span> sqft extra will be included, since the minimum area of a {selectedGroup.sizeType} is {selectedGroup.area} sqft ({selectedGroup.measurement}).
                 </li>
               )}
             </ul>
           </div>
 
-          {/* ... existing Purchase includes section ... */}
+          <div className="">
+            <div className="font-semibold text-md lg:text-lg text-[#101828]">
+              Purchase includes:
+            </div>
+            <ul className="ml-6 lg:ml-8 text-justify text-md lg:text-lg text-[#4A5565] list-disc">
+              <li>
+                10 Year Warranty
+              </li>
+              <li>
+                Complimentary mini garden.
+              </li>
+            </ul>
+          </div>
 
           <div className="font-semibold text-md lg:text-lg text-[#101828]">
             Total: <span className="tracking-tight text-[#498118]">RM {totalPrice.toFixed(2)}</span>
@@ -515,7 +548,7 @@ export default function PricingCalculator({
 
       {/* Add to Cart */}
       <button
-        className={`w-full p-2 lg:p-4 font-bold text-md lg:text-lg text-[#FFFFFF] rounded-md lg:rounded-lg shadow-lg transition ${
+        className={`w-full p-4 font-bold text-md lg:text-lg text-[#FFFFFF] rounded-md lg:rounded-lg shadow-lg transition ${
           !hasValidInput
             ? 'bg-[#498118]/50 cursor-not-allowed' 
             : 'bg-[#498118] cursor-pointer hover:scale-105 active:scale-95'

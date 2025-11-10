@@ -62,8 +62,8 @@ export default function ProductCard({ product }) {
 
       {/* Cover Image */}
       <img
-        src={product.images[0]}
-        alt={product.name}
+        src={product.images?.[0] || '/images/shop/LiveGrassTexture.jpg'}
+        alt={product.name || 'Product image'}
         className="object-cover aspect-4/3 w-full"
       />
 
