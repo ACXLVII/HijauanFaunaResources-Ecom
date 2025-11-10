@@ -43,7 +43,7 @@ const SectionPrices = () => {
             <div className="grid grid-cols-1">
             
               {/* Per Tile */}
-              <div className="overflow-hidden grid grid-cols-3 bg-[#000000]/70 rounded-lg lg:rounded-xl border-2 border-[#FFFFFF]">
+              <div className="overflow-hidden grid grid-cols-3 bg-[#000000]/70">
                 <div className="flex items-center justify-center col-span-1 p-2 lg:p-4">
                   <TbRulerMeasure className="text-5xl lg:text-6xl text-[#FFFFFF]" />
                 </div>
@@ -87,7 +87,7 @@ const SectionPrices = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
             
               {/* Per Square Feet */}
-              <div className="overflow-hidden grid grid-cols-3 bg-[#000000]/70 rounded-lg lg:rounded-xl border-2 border-[#FFFFFF]">
+              <div className="overflow-hidden grid grid-cols-3 bg-[#000000]/70">
                 <div className="flex items-center justify-center col-span-1 p-2 lg:p-4">
                   <TbRuler className="text-5xl lg:text-6xl text-[#FFFFFF]" />
                 </div>
@@ -105,7 +105,7 @@ const SectionPrices = () => {
               </div>
 
               {/* Per Roll */}
-              <div className="overflow-hidden grid grid-cols-3 bg-[#000000]/70 rounded-lg lg:rounded-xl border-2 border-[#FFFFFF]">
+              <div className="overflow-hidden grid grid-cols-3 bg-[#000000]/70">
                 <div className="flex items-center justify-center col-span-1 p-2 lg:p-4">
                   <GiBandageRoll className="text-5xl lg:text-6xl text-[#FFFFFF]" />
                 </div>
