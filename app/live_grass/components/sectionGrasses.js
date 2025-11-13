@@ -6,6 +6,7 @@ import Image from 'next/image';
 // Icon Imports
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { TbAugmentedReality2, TbGardenCart } from "react-icons/tb";
+import ARPreviewButton from '../../arPreview/ARPreviewButton';
 
 // Function to display a slideshow of images with swipe functionality for mobile devices.
 function ImageSlideshow({ images }) {
@@ -120,9 +121,11 @@ export default function SectionGrasses() {
                 
                 {/* Button Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                  <button
-                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.open('/ar/japanese_grass', '_blank')} // Test link to AR preview.
+                  <ARPreviewButton
+                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99 disabled:opacity-70"
+                    modelSrc="/models/live_grass/japanese.glb"
+                    iosSrc="/models/live_grass/japanese.usdz"
+                    posterSrc="/images/live_grass/grasses/japanese/image1.jpg"
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbAugmentedReality2 className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -130,7 +133,7 @@ export default function SectionGrasses() {
                         AR Preview
                       </h1>
                     </div>
-                  </button>
+                  </ARPreviewButton>
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
                     onClick={() => window.location.href = '/shop/live_grass/product/xIDYfgqdsLZkwB8ZCCmb'}
@@ -174,9 +177,11 @@ export default function SectionGrasses() {
                 
                 {/* Button Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                  <button
-                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.open('/ar/japanese_grass', '_blank')} // Test link to AR preview.
+                  <ARPreviewButton
+                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99 disabled:opacity-70"
+                    modelSrc="/models/live_grass/philippine.glb"
+                    iosSrc="/models/live_grass/philippine.usdz"
+                    posterSrc="/images/live_grass/grasses/philippine/image1.jpg"
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbAugmentedReality2 className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -184,7 +189,7 @@ export default function SectionGrasses() {
                         AR Preview
                       </h1>
                     </div>
-                  </button>
+                  </ARPreviewButton>
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
                     onClick={() => window.location.href = '/shop/live_grass/product/JSbTUJKyOGdUlNXCXlgL'}
@@ -228,9 +233,11 @@ export default function SectionGrasses() {
                 
                 {/* Button Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                  <button
-                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.open('/ar/japanese_grass', '_blank')} // Test link to AR preview.
+                  <ARPreviewButton
+                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99 disabled:opacity-70"
+                    modelSrc="/models/live_grass/pearl.glb"
+                    iosSrc="/models/live_grass/pearl.usdz"
+                    posterSrc="/images/live_grass/grasses/pearl/image1.jpg"
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbAugmentedReality2 className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -238,7 +245,7 @@ export default function SectionGrasses() {
                         AR Preview
                       </h1>
                     </div>
-                  </button>
+                  </ARPreviewButton>
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
                     onClick={() => window.location.href = '/shop/live_grass/product/BddydnecjzrKOkSKaiqN'}
@@ -282,9 +289,11 @@ export default function SectionGrasses() {
                 
                 {/* Button Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                  <button
-                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.open('/ar/japanese_grass', '_blank')} // Test link to AR preview.
+                  <ARPreviewButton
+                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99 disabled:opacity-70"
+                    modelSrc="/models/live_grass/cow.glb"
+                    iosSrc="/models/live_grass/cow.usdz"
+                    posterSrc="/images/live_grass/grasses/cow/image1.jpg"
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbAugmentedReality2 className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -292,7 +301,7 @@ export default function SectionGrasses() {
                         AR Preview
                       </h1>
                     </div>
-                  </button>
+                  </ARPreviewButton>
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
                     onClick={() => window.location.href = '/shop/live_grass/product/eAe19J533jbyniNOCK8N'}

@@ -324,6 +324,8 @@ export default function SectionCheckout() {
         body: JSON.stringify({
           items: lineItems,
           customerEmail: orderData.email,
+          requestShipping: orderData.requestShipping,
+          shippingCost: orderData.requestShipping ? shippingCost : 0,
           metadata: {
             customerName: orderData.name,
             customerEmail: orderData.email,
