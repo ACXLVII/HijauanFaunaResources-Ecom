@@ -29,10 +29,16 @@ function CheckoutSuccessContent() {
 
   const saveOrderToFirebase = async (sessionData) => {
     try {
-      const { metadata } = sessionData;
+      const { metadata, shipping_details, amount_shipping } = sessionData;
       
       // Parse the products from the metadata
       const products = JSON.parse(metadata.products || '[]');
+      
+      // Calculate shipping cost - prioritize Stripe's actual shipping amount, then metadata
+      // Stripe returns shipping in cents, so divide by 100 to get the actual price
+      const stripeShippingCost = amount_shipping ? amount_shipping / 100 : 0;
+      const metadataShippingCost = parseFloat(metadata.shippingCost || '0');
+      const shippingCost = stripeShippingCost > 0 ? stripeShippingCost : metadataShippingCost;
       
       // Build shippingDetails object
       const requestShipping = metadata.requestShipping === 'true';
@@ -42,25 +48,46 @@ function CheckoutSuccessContent() {
         postcode: '',
         city: '',
         state: '',
+        country: '',
         distance: 0,
-        shippingCost: 0,
+        shippingCost: shippingCost,
       };
 
       // If shipping was requested, populate shippingDetails
-      if (requestShipping && metadata.addressDetails) {
-        try {
-          const addressDetails = JSON.parse(metadata.addressDetails);
+      // Priority: Use Stripe shipping_details if available, otherwise use metadata addressDetails
+      if (requestShipping) {
+        // First, try to use Stripe shipping_details (more reliable, collected by Stripe)
+        if (shipping_details && shipping_details.address) {
+          const stripeAddress = shipping_details.address;
           shippingDetails = {
             requestShipping: true,
-            address: addressDetails.address || '',
-            postcode: addressDetails.postcode || '',
-            city: addressDetails.city || '',
-            state: addressDetails.state || '',
+            address: stripeAddress.line1 || '',
+            addressLine2: stripeAddress.line2 || '',
+            postcode: stripeAddress.postal_code || '',
+            city: stripeAddress.city || '',
+            state: stripeAddress.state || '',
+            country: stripeAddress.country || '',
             distance: parseFloat(metadata.distance || '0'),
-            shippingCost: parseFloat(metadata.shippingCost || '0'),
+            shippingCost: shippingCost,
           };
-        } catch (error) {
-          console.error("Error parsing addressDetails:", error);
+        } 
+        // Fallback to metadata addressDetails (from form)
+        else if (metadata.addressDetails) {
+          try {
+            const addressDetails = JSON.parse(metadata.addressDetails);
+            shippingDetails = {
+              requestShipping: true,
+              address: addressDetails.address || '',
+              postcode: addressDetails.postcode || '',
+              city: addressDetails.city || '',
+              state: addressDetails.state || '',
+              country: 'MY', // Default to Malaysia
+              distance: parseFloat(metadata.distance || '0'),
+              shippingCost: shippingCost,
+            };
+          } catch (error) {
+            console.error("Error parsing addressDetails:", error);
+          }
         }
       }
       

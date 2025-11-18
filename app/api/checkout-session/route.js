@@ -25,12 +25,15 @@ export async function GET(request) {
     return NextResponse.json({
       id: session.id,
       amount_total: session.amount_total,
+      amount_subtotal: session.amount_subtotal,
+      amount_shipping: session.total_details?.amount_shipping || 0,
       currency: session.currency,
       customer_email: session.customer_email,
       payment_status: session.payment_status,
       metadata: session.metadata,
       line_items: session.line_items,
       customer: session.customer,
+      shipping_details: session.shipping_details,
     });
   } catch (error) {
     console.error('Error retrieving checkout session:', error);

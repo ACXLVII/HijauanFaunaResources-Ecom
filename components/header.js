@@ -31,6 +31,9 @@ import {
   TbTrees
 } from 'react-icons/tb'
 import {
+  FaStar
+} from 'react-icons/fa'
+import {
   Bars3Icon
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -184,6 +187,24 @@ const navigation = {
         },
       ],
     },
+    {
+      id: 'menuItem3',
+      name: 'Review',
+      categories: [
+        {
+          id: '1',
+          name: 'Write Review',
+          icon: FaStar,
+          href: '/review',
+        },
+        {
+          id: '2',
+          name: 'View Reviews',
+          icon: FaStar,
+          href: '/review/view',
+        },
+      ],
+    },
   ],
   pages: [
     { name: 'About Us', href: '/about' },
@@ -198,6 +219,7 @@ const servicesPaths = [
   '/maintenance',
 ];
 const shopPath = '/shop';
+const reviewPath = '/review';
 
 export default function Header() {
 
@@ -285,6 +307,7 @@ export default function Header() {
 
   const isServicesActive = servicesPaths.some(path => pathname.startsWith(path));
   const isShopActive = pathname.startsWith(shopPath);
+  const isReviewActive = pathname.startsWith(reviewPath);
 
   return (
     <div className="z-50">
@@ -422,13 +445,25 @@ export default function Header() {
 
               {/* Tips Button */}
               <div
-                className="relative overflow-hidden h-30 bg-[url('/images/header/navigation/tips.jpg')] bg-cover bg-center rounded-lg shadow-lg active:shadow-none transition active:scale-99"
+                className="relative overflow-hidden h-30 mb-4 bg-[url('/images/header/navigation/tips.jpg')] bg-cover bg-center rounded-lg shadow-lg active:shadow-none transition active:scale-99"
                 onClick={() => window.location.href = '/tips'}
                 tabIndex={0}
                 role="button"
               >
                 <h1 className="absolute top-0 left-0 w-full p-2 bg-[#000000]/50 font-bold tracking-tight text-lg text-[#FFFFFF]">
                   Tips
+                </h1>
+              </div>
+
+              {/* Review Button */}
+              <div
+                className="relative overflow-hidden h-30 bg-[url('/images/header/navigation/Shop.jpg')] bg-cover bg-center rounded-lg shadow-lg active:shadow-none transition active:scale-99"
+                onClick={() => window.location.href = '/review'}
+                tabIndex={0}
+                role="button"
+              >
+                <h1 className="absolute top-0 left-0 w-full p-2 bg-[#000000]/50 font-bold tracking-tight text-lg text-[#FFFFFF]">
+                  Review
                 </h1>
               </div>
 
@@ -493,6 +528,7 @@ export default function Header() {
                   let isActive = false;
                   if (category.name === 'Services') isActive = isServicesActive;
                   if (category.name === 'Shop') isActive = isShopActive;
+                  if (category.name === 'Review') isActive = isReviewActive;
 
                   return (
                     <button

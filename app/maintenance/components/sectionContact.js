@@ -59,7 +59,7 @@ export default function SectionContact() {
         message: formData.message,
         timestamp: serverTimestamp(),
       };
-      await addDoc(collection(db, "Contact Inbox"), contactData);
+      await addDoc(collection(db, "Contact"), contactData);
       toast.success("Message sent successfully! We'll get back to you soon.");
       
       // Reset form
