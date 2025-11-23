@@ -48,6 +48,12 @@ const calculateShippingCost = (distance) => {
   return Math.max(calculatedCost, minCost);
 };
 
+// Convert text to title case (capitalize first letter of each word)
+const toTitleCase = (str) => {
+  if (!str) return str;
+  return str.toLowerCase().replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 export default function SectionCheckout() {
   const { cart } = useCart();
   const productsInCart = cart;
@@ -126,7 +132,26 @@ export default function SectionCheckout() {
     }
   };
 
-  // Geocode address to get coordinates
+  // Handle address field blur - normalize to title case for case-insensitive handling
+  const handleAddressBlur = (fieldName) => {
+    setOrderData((prev) => {
+      const currentValue = prev.addressDetails[fieldName];
+      if (currentValue && currentValue.trim().length > 0) {
+        return {
+          ...prev,
+          addressDetails: {
+            ...prev.addressDetails,
+            [fieldName]: toTitleCase(currentValue),
+          },
+        };
+      }
+      return prev;
+    });
+    setTouched(prev => ({ ...prev, [fieldName]: true }));
+    setFocusedField(null);
+  };
+
+  // Geocode address to get coordinates - tries multiple address formats for better detection
   const geocodeAddress = async (addressDetails) => {
     try {
       const { address, postcode, city, state } = addressDetails;
@@ -134,26 +159,65 @@ export default function SectionCheckout() {
         return null;
       }
 
-      const fullAddress = `${address}, ${postcode} ${city}, ${state}, Malaysia`;
+      // Normalize address components to title case for case-insensitive geocoding
+      const normalizedAddress = toTitleCase(address);
+      const normalizedCity = toTitleCase(city);
+      const normalizedState = toTitleCase(state);
       
-      // Use OpenStreetMap Nominatim API for geocoding
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1`,
-        {
-          headers: {
-            'User-Agent': 'HijauanFaunaResources-Ecom' // Required by Nominatim
+      // Try multiple address formats to improve detection
+      const addressFormats = [
+        // Format 1: Full address with all components (original format)
+        `${normalizedAddress}, ${postcode} ${normalizedCity}, ${normalizedState}, Malaysia`,
+        // Format 2: Address with postcode, city, state (comma separated)
+        `${normalizedAddress}, ${normalizedCity}, ${normalizedState} ${postcode}, Malaysia`,
+        // Format 3: Address with postcode and city/state
+        `${normalizedAddress}, ${postcode} ${normalizedCity} ${normalizedState}, Malaysia`,
+        // Format 4: Simplified - address, postcode, city
+        `${normalizedAddress}, ${postcode} ${normalizedCity}, Malaysia`,
+        // Format 5: Address with postcode and state
+        `${normalizedAddress}, ${postcode} ${normalizedState}, Malaysia`,
+        // Format 6: Postcode and city/state combination
+        `${postcode} ${normalizedCity}, ${normalizedState}, Malaysia`,
+        // Format 7: Just address and postcode
+        `${normalizedAddress}, ${postcode}, Malaysia`,
+        // Format 8: City and postcode
+        `${normalizedCity}, ${postcode}, ${normalizedState}, Malaysia`,
+      ];
+      
+      // Try each format until one works
+      for (const addressFormat of addressFormats) {
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addressFormat)}&limit=1&countrycodes=my`,
+            {
+              headers: {
+                'User-Agent': 'HijauanFaunaResources-Ecom' // Required by Nominatim
+              }
+            }
+          );
+          
+          const data = await response.json();
+          
+          if (data && data.length > 0) {
+            const result = data[0];
+            // Verify the result is reasonable (has coordinates)
+            if (result.lat && result.lon) {
+              console.log('Geocoding successful with format:', addressFormat);
+              return {
+                lat: parseFloat(result.lat),
+                lng: parseFloat(result.lon),
+              };
+            }
           }
+        } catch (formatError) {
+          // Continue to next format if this one fails
+          console.log('Geocoding format failed:', addressFormat, formatError);
+          continue;
         }
-      );
-      
-      const data = await response.json();
-      
-      if (data && data.length > 0) {
-        return {
-          lat: parseFloat(data[0].lat),
-          lng: parseFloat(data[0].lon),
-        };
       }
+      
+      // If all formats failed, return null
+      console.log('All geocoding formats failed for address:', addressDetails);
       return null;
     } catch (error) {
       console.error('Geocoding error:', error);
@@ -202,7 +266,7 @@ export default function SectionCheckout() {
           setShippingCost(cost);
           setAddressError('');
         } else {
-          setAddressError("Could not find address. Please check your address details.");
+          setAddressError("Could not find address. Please verify your address details are correct. Try using the full street name and ensure city and state match official names.");
           setShippingCost(0);
           setCustomerCoordinates(null);
           setDistance(0);
@@ -622,10 +686,7 @@ export default function SectionCheckout() {
                         value={orderData.addressDetails.address}
                         onChange={handleChange}
                         onFocus={() => setFocusedField('address')}
-                        onBlur={() => {
-                          setTouched(t => ({ ...t, address: true }));
-                          setFocusedField(null);
-                        }}
+                        onBlur={() => handleAddressBlur('address')}
                         className={`h-10 lg:h-12 w-full px-1.5 lg:px-2 text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
                           touched.address && orderData.addressDetails.address.trim().length > 0 && !addressError
                             ? 'border-[#C39533]' 
@@ -690,10 +751,7 @@ export default function SectionCheckout() {
                         value={orderData.addressDetails.city}
                         onChange={handleChange}
                         onFocus={() => setFocusedField('city')}
-                        onBlur={() => {
-                          setTouched(t => ({ ...t, city: true }));
-                          setFocusedField(null);
-                        }}
+                        onBlur={() => handleAddressBlur('city')}
                         className={`h-10 lg:h-12 w-full px-1.5 lg:px-2 text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
                           touched.city && orderData.addressDetails.city.trim().length > 0 && !addressError
                             ? 'border-[#C39533]' 
@@ -724,10 +782,7 @@ export default function SectionCheckout() {
                         value={orderData.addressDetails.state}
                         onChange={handleChange}
                         onFocus={() => setFocusedField('state')}
-                        onBlur={() => {
-                          setTouched(t => ({ ...t, state: true }));
-                          setFocusedField(null);
-                        }}
+                        onBlur={() => handleAddressBlur('state')}
                         className={`h-10 lg:h-12 w-full px-1.5 lg:px-2 text-md lg:text-lg text-[#101828] rounded-md lg:rounded-lg border-2 focus:outline-none ${
                           touched.state && orderData.addressDetails.state.trim().length > 0 && !addressError
                             ? 'border-[#C39533]' 
