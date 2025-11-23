@@ -5,8 +5,7 @@ import Image from 'next/image';
 
 // Icon Imports
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { TbAugmentedReality2, TbGardenCart } from "react-icons/tb";
-import ARPreviewButton from '../../arPreview/ARPreviewButton';
+import { TbGardenCart } from "react-icons/tb";
 
 // Function to display a slideshow of images with swipe functionality for mobile devices.
 function ImageSlideshow({ images }) {
@@ -120,21 +119,8 @@ export default function SectionGrades() {
                   <span className="font-bold">Ideal for:</span> budget-conscious users, events, basic yard upgrades.
                 </p>
                 
-                {/* Button Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                  <ARPreviewButton
-                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99 disabled:opacity-70"
-                    modelSrc="/models/artificial_grass/economy.glb"
-                    iosSrc="/models/artificial_grass/economy.usdz"
-                    posterSrc="/images/artificial_grass/grades/economy/image1.jpg"
-                  >
-                    <div className="flex items-center justify-center gap-2 lg:gap-4">
-                      <TbAugmentedReality2 className="text-xl lg:text-2xl text-[#FFFFFF]" />
-                      <h1 className="font-bold tracking-tight text-md lg:text-lg text-[#FFFFFF]">
-                        AR Preview
-                      </h1>
-                    </div>
-                  </ARPreviewButton>
+                {/* Button */}
+                <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
                     onClick={() => window.location.href = '/shop/artificial_grass/economy'}
@@ -176,21 +162,8 @@ export default function SectionGrades() {
                   <span className="font-bold">Ideal for:</span> homeowners, designers, commercial properties.
                 </p>
                 
-                {/* Button Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
-                  <ARPreviewButton
-                    className="p-2 lg:p-4 bg-[#623183] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99 disabled:opacity-70"
-                    modelSrc="/models/artificial_grass/premium.glb"
-                    iosSrc="/models/artificial_grass/premium.usdz"
-                    posterSrc="/images/artificial_grass/grades/premium/image1.jpg"
-                  >
-                    <div className="flex items-center justify-center gap-2 lg:gap-4">
-                      <TbAugmentedReality2 className="text-xl lg:text-2xl text-[#FFFFFF]" />
-                      <h1 className="font-bold tracking-tight text-md lg:text-lg text-[#FFFFFF]">
-                        AR Preview
-                      </h1>
-                    </div>
-                  </ARPreviewButton>
+                {/* Button */}
+                <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
                     onClick={() => window.location.href = '/shop/artificial_grass/premium'}

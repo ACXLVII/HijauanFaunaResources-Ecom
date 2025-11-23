@@ -17,9 +17,35 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 
 // Store location coordinates (update with your actual store location)
 const STORE_LOCATION = {
-  lat: 3.2122, // Example: Kuala Lumpur coordinates
+  lat: 3.2122, // Will be geocoded from address if not set correctly
   lng: 101.5741,
-  address: "31, Jalan 1/3 Bukit Saujana, 47000 Sungai Buloh, Selangor" // Update with actual address
+  address: "31, Jalan 1/3 Bukit Saujana, 47000 Sungai Buloh, Selangor" // Actual store address
+};
+
+// Geocode store location on component load to get accurate coordinates
+const geocodeStoreLocation = async () => {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(STORE_LOCATION.address + ', Malaysia')}&limit=1&countrycodes=my`,
+      {
+        headers: {
+          'User-Agent': 'HijauanFaunaResources-Ecom'
+        }
+      }
+    );
+    
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      return {
+        lat: parseFloat(data[0].lat),
+        lng: parseFloat(data[0].lon),
+      };
+    }
+  } catch (error) {
+    console.error('Error geocoding store location:', error);
+  }
+  return null;
 };
 
 // Calculate distance between two coordinates using Haversine formula
@@ -37,15 +63,16 @@ const calculateDistance = (lat1, lng1, lat2, lng2) => {
 
 // Calculate shipping cost based on distance
 const calculateShippingCost = (distance) => {
-  // Base shipping cost
-  const baseCost = 5; // RM 5 base cost
-  // Cost per kilometer
-  const costPerKm = 5; // RM 5 per km
-  // Minimum shipping cost
-  const minCost = 20; // RM 20 minimum
+  // If distance is 5 km or less, charge minimum cost
+  if (distance <= 5) {
+    return 20; // RM 20 minimum for distances up to 5 km
+  }
   
+  // For distances greater than 5 km
+  const baseCost = 5; // RM 5 base cost
+  const costPerKm = 5; // RM 5 per km
   const calculatedCost = baseCost + (distance * costPerKm);
-  return Math.max(calculatedCost, minCost);
+  return calculatedCost;
 };
 
 // Convert text to title case (capitalize first letter of each word)
@@ -86,6 +113,19 @@ export default function SectionCheckout() {
   const [customerCoordinates, setCustomerCoordinates] = useState(null);
   const [distance, setDistance] = useState(0);
   const [addressError, setAddressError] = useState('');
+  const [storeCoordinates, setStoreCoordinates] = useState(STORE_LOCATION);
+
+  // Geocode store location on mount to get accurate coordinates
+  useEffect(() => {
+    const fetchStoreCoords = async () => {
+      const coords = await geocodeStoreLocation();
+      if (coords) {
+        setStoreCoordinates(coords);
+        console.log('Store coordinates updated:', coords);
+      }
+    };
+    fetchStoreCoords();
+  }, []);
 
   const subtotal = productsInCart.reduce((sum, product) => {
     const price = parseFloat(String(product.price).replace(/[^0-9.-]+/g, ""));
@@ -255,15 +295,34 @@ export default function SectionCheckout() {
         
         if (coords) {
           setCustomerCoordinates(coords);
-          const calculatedDistance = calculateDistance(
-            STORE_LOCATION.lat,
-            STORE_LOCATION.lng,
+          let calculatedDistance = calculateDistance(
+            storeCoordinates.lat,
+            storeCoordinates.lng,
             coords.lat,
             coords.lng
           );
+          
+          // If both addresses are in the same postcode and city, cap the distance
+          // This handles cases where geocoding might be slightly inaccurate
+          const { postcode, city } = orderData.addressDetails;
+          const storePostcode = '47000'; // Store postcode
+          const storeCity = 'Sungai Buloh'; // Store city
+          
+          if (postcode === storePostcode && city.toLowerCase() === storeCity.toLowerCase()) {
+            // Same area - cap distance at 5km max to prevent geocoding errors
+            if (calculatedDistance > 5) {
+              console.warn('Distance seems too high for same area. Capping at 5km. Original distance:', calculatedDistance.toFixed(2), 'km');
+              calculatedDistance = Math.min(calculatedDistance, 5);
+            }
+          }
+          
           setDistance(calculatedDistance);
           const cost = calculateShippingCost(calculatedDistance);
           setShippingCost(cost);
+          console.log('Distance calculated:', calculatedDistance.toFixed(2), 'km');
+          console.log('Shipping cost:', cost.toFixed(2), 'RM');
+          console.log('Store location:', storeCoordinates);
+          console.log('Customer location:', coords);
           setAddressError('');
         } else {
           setAddressError("Could not find address. Please verify your address details are correct. Try using the full street name and ensure city and state match official names.");
@@ -819,6 +878,8 @@ export default function SectionCheckout() {
                       <div className="p-2 lg:p-4 bg-green-50 rounded-md lg:rounded-lg border border-green-200">
                         <p className="text-sm lg:text-md text-green-800 text-center font-bold">
                           Shipping Cost: RM {shippingCost.toFixed(2)}
+                        </p>
+                        <p className="text-xs lg:text-sm text-green-700 text-center mt-1">
                         </p>
                       </div>
                     )}
