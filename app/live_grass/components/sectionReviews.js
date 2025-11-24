@@ -12,9 +12,9 @@ const reviews = [
         after: "/images/live_grass/review1/AfterLive1.jpg",
       }
     ],
-    name: "Customer Name",
-    caption: "Customer review text will appear here. Update this with actual customer feedback.",
-    date: "DD/MM/YYYY",
+    name: "Yusof",
+    caption: "The quality of the turf and the paver installation is top-notch. It looks so clean and well-defined, making the side yard actually feel like an extension of the home now. Highly recommend!",
+    date: "28/07/2025",
   },
   {
     id: 2,
@@ -24,9 +24,9 @@ const reviews = [
         after: "/images/live_grass/review2/AfterLive2.jpg",
       }
     ],
-    name: "Customer Name",
-    caption: "Customer review text will appear here. Update this with actual customer feedback.",
-    date: "DD/MM/YYYY",
+    name: "Khairiyah",
+    caption: "The precision on the edges and the overall finish is fantastic. They managed to maximize the space perfectly, turning a dead area into a beautifully minimalist and low-maintenance garden. So pleased with the execution.",
+    date: "06/09/2025",
   },
 ]
 

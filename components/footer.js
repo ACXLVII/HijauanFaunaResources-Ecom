@@ -1,4 +1,5 @@
 import { AiFillTikTok, AiFillFacebook  } from "react-icons/ai";
+import Image from 'next/image';
 
 const navigation = {
   social: [
@@ -24,10 +25,12 @@ export default function Example() {
 
         {/* Logo BEGINS */}
         <div className="flex items-center justify-center mt-8 sm:mt-10 lg:mt-12 mb-4 sm:mb-5 lg:mb-6">
-          <img
+          <Image
             alt="Hijauan Fauna Resources Sdn. Bhd."
             src="/images/HFRlogo.png"
             className="h-40 sm:h-50 lg:h-60 object-contain"
+            width={100}
+            height={100}
           />
         </div>
         {/* Logo ENDS */} 

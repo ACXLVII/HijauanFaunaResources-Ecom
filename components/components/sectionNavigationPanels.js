@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   FaChevronLeft
@@ -107,10 +107,12 @@ export default function NavigationPanels({
               ) : (
                 <a key={item.id} href={item.href} className="group cursor-pointer">
                   <div className="relative overflow-hidden rounded-xl shadow-xl hover:scale-105 active:scale-95 active:shadow-none transition">
-                    <img
+                    <Image
                       src={item.imageSrc}
                       alt={item.imageAlt}
                       className="object-center object-cover aspect-4/3 h-56 w-full"
+                      width={100}
+                      height={100}
                     />
                     <div className="absolute top-0 flex items-center justify-between w-full p-4 bg-[#000000]/50">
                       <h1 className="font-bold tracking-tight text-3xl text-[#FFFFFF]">

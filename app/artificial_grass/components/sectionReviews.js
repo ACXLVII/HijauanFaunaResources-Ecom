@@ -12,9 +12,9 @@ const reviews = [
         after: "/images/artificial_grass/review1/AfterArtificial1.jpg",
       }
     ],
-    name: "Customer Name",
-    caption: "Customer review text will appear here. Update this with actual customer feedback.",
-    date: "DD/MM/YYYY",
+    name: "Haniff",
+    caption: "It’s all in the details! The planting beds are neatly done, and the selection of the white flowers gives it such a clean, crisp finish. Professional job from start to finish. We're very happy with the final look.",
+    date: "20/08/2025",
   },
   {
     id: 2,
@@ -24,9 +24,9 @@ const reviews = [
         after: "/images/artificial_grass/review2/AfterArtificial2.jpg",
       }
     ],
-    name: "Customer Name",
-    caption: "Customer review text will appear here. Update this with actual customer feedback.",
-    date: "DD/MM/YYYY",
+    name: "Hazim",
+    caption: "Honestly blown away by the results! Going from that overgrown mess to this neat, usable space is exactly what we hoped for. Huge thanks to the team for this amazing transformation.",
+    date: "11/07/2025",
   },
 ]
 
