@@ -122,7 +122,7 @@ export default function SectionGrasses() {
                 <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.location.href = '/shop/live_grass/product/xIDYfgqdsLZkwB8ZCCmb'}
+                    onClick={() => window.location.href = '/shop/live_grass/product/japanese'}
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbGardenCart className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -165,7 +165,7 @@ export default function SectionGrasses() {
                 <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.location.href = '/shop/live_grass/product/JSbTUJKyOGdUlNXCXlgL'}
+                    onClick={() => window.location.href = '/shop/live_grass/product/philippine'}
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbGardenCart className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -208,7 +208,7 @@ export default function SectionGrasses() {
                 <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.location.href = '/shop/live_grass/product/BddydnecjzrKOkSKaiqN'}
+                    onClick={() => window.location.href = '/shop/live_grass/product/pearl'}
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbGardenCart className="text-xl lg:text-2xl text-[#FFFFFF]" />
@@ -251,7 +251,7 @@ export default function SectionGrasses() {
                 <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.location.href = '/shop/live_grass/product/eAe19J533jbyniNOCK8N'}
+                    onClick={() => window.location.href = '/shop/live_grass/product/cow'}
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbGardenCart className="text-xl lg:text-2xl text-[#FFFFFF]" />

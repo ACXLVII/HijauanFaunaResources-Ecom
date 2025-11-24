@@ -14,7 +14,7 @@ export default function SectionMarketing() {
             Perfect Grass, Zero Effort.
           </h1>
           <p className="p-2 bg-[#000000]/70 text-center text-lg lg:text-xl text-[#EEEEEE]">
-            [something about artificial grass] Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Bring effortless beauty to your outdoor space with vibrant, long-lasting artificial grass.
           </p>
         </div>
         {/* Intro ENDS */}

@@ -107,7 +107,7 @@ export default function SectionGrades() {
                 
                 {/* Title */}
                 <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
-                  Economy
+                  Artificial Grass
                 </h1>
 
                 {/* Description */}
@@ -123,50 +123,7 @@ export default function SectionGrades() {
                 <div className="flex justify-center">
                   <button
                     className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.location.href = '/shop/artificial_grass/economy'}
-                  >
-                    <div className="flex items-center justify-center gap-2 lg:gap-4">
-                      <TbGardenCart className="text-xl lg:text-2xl text-[#FFFFFF]" />
-                      <h1 className="font-bold tracking-tight text-md lg:text-lg text-[#FFFFFF]">
-                        View in Store
-                      </h1>
-                    </div>
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          {/* Premium */}
-          <div className="overflow-hidden rounded-lg lg:rounded-xl shadow-lg">
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              <ImageSlideshow images={[
-                '/images/artificial_grass/grades/premium/image1.jpg',
-                '/images/artificial_grass/grades/premium/image2.jpg',
-                '/images/artificial_grass/grades/premium/image3.jpg'
-              ]} />
-              <div className="p-4 lg:p-8 bg-[#C39533]">
-                
-                {/* Title */}
-                <h1 className="w-fit p-2 mb-2 lg:mb-4 bg-[#000000]/70 font-bold tracking-tight text-3xl lg:text-4xl text-[#FFFFFF]">
-                  Premium
-                </h1>
-
-                {/* Description */}
-                <p className="p-2 mb-2 lg:mb-4 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
-                  Designed for those who want the look and feel of luxury. Premium artificial grass offers ultra-realistic textures, multi-tone fibers, and soft-touch comfort which
-                  is perfect for high-end landscapes, show homes, rooftop gardens, or pet-friendly spaces. It stays cooler underfoot, resists flattening, and looks lush all year round.
-                </p>
-                <p className="p-2 mb-4 lg:mb-8 bg-[#000000]/70 text-justify text-md lg:text-lg text-[#EEEEEE]">
-                  <span className="font-bold">Ideal for:</span> homeowners, designers, commercial properties.
-                </p>
-                
-                {/* Button */}
-                <div className="flex justify-center">
-                  <button
-                    className="p-2 lg:p-4 bg-[#498118] rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
-                    onClick={() => window.location.href = '/shop/artificial_grass/premium'}
+                    onClick={() => window.location.href = '/shop/artificial_grass'}
                   >
                     <div className="flex items-center justify-center gap-2 lg:gap-4">
                       <TbGardenCart className="text-xl lg:text-2xl text-[#FFFFFF]" />
