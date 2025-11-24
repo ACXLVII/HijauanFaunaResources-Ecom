@@ -363,7 +363,7 @@ export default function SectionCheckout() {
 
       // Prepare line items for Stripe
       const lineItems = productsInCart.map(product => ({
-        price: product.priceID,
+        price: product.priceID_TEST,
         quantity: product.quantity,
       }));
 
@@ -899,7 +899,7 @@ export default function SectionCheckout() {
 
             <hr className="border-t-2 border-[#C39533]" />
 
-            <ul className="divide-y divide-[#CCCCCC] flex-grow">
+            <ul className="divide-y divide-[#CCCCCC] grow">
               {productsInCart.length === 0 ? (
                 <li className="py-8 text-center text-[#4A5565]">Your cart is empty.</li>
               ) : (
