@@ -132,57 +132,60 @@ const navigation = {
             },
           ],
         },
-        {
-          id: '2',
-          name: 'Plants',
-          icon: PiPottedPlant,
-          subCategories: [
-            {
-              id: '1',
-              name: 'Decorative',
-              href: '/decorative_plants',
-            },
-            {
-              id: '2',
-              name: 'Produce',
-              href: '/produce_plants',
-            },
-          ],
-        },
-        {
-          id: '3',
-          name: 'Rocks',
-          icon: GiStonePile,
-          subCategories: [
-            {
-              id: '1',
-              name: 'Boulders',
-              href: '/boulder_rocks',
-            },
-            {
-              id: '2',
-              name: 'Pebbles',
-              href: '/pebble_rocks',
-            },
-          ],
-        },
-        {
-          id: '4',
-          name: 'Others',
-          icon: TbFountain,
-          subCategories: [
-            {
-              id: '1',
-              name: 'Furniture',
-              href: '/furniture',
-            },
-            {
-              id: '2',
-              name: 'Ornaments',
-              href: '/ornaments',
-            },
-          ],
-        },
+        // Plants category - HIDDEN
+        // {
+        //   id: '2',
+        //   name: 'Plants',
+        //   icon: PiPottedPlant,
+        //   subCategories: [
+        //     {
+        //       id: '1',
+        //       name: 'Decorative',
+        //       href: '/decorative_plants',
+        //     },
+        //     {
+        //       id: '2',
+        //       name: 'Produce',
+        //       href: '/produce_plants',
+        //     },
+        //   ],
+        // },
+        // Rocks category - HIDDEN
+        // {
+        //   id: '3',
+        //   name: 'Rocks',
+        //   icon: GiStonePile,
+        //   subCategories: [
+        //     {
+        //       id: '1',
+        //       name: 'Boulders',
+        //       href: '/boulder_rocks',
+        //     },
+        //     {
+        //       id: '2',
+        //       name: 'Pebbles',
+        //       href: '/pebble_rocks',
+        //     },
+        //   ],
+        // },
+        // Others category - HIDDEN
+        // {
+        //   id: '4',
+        //   name: 'Others',
+        //   icon: TbFountain,
+        //   subCategories: [
+        //     {
+        //       id: '1',
+        //       name: 'Furniture',
+        //       href: '/furniture',
+        //     },
+        //     {
+        //       id: '2',
+        //       name: 'Ornaments',
+        //       href: '/ornaments',
+        //     },
+        //   ],
+        // },
       ],
     },
   ],
@@ -404,9 +407,10 @@ export default function Header() {
                   <div className="p-4 space-y-4">
                     <Link href="/shop/live_grass" className="block text-gray-600">Live Grass</Link>
                     <Link href="/shop/artificial_grass" className="block text-gray-600">Artificial Grass</Link>
-                    <Link href="/shop/Plants" className="block text-gray-600">Plants</Link>
-                    <Link href="/shop/Rocks" className="block text-gray-600">Rocks</Link>
-                    <Link href="/shop/Others" className="block text-gray-600">Others</Link>
+                    {/* Plants, Rocks, and Others links - HIDDEN */}
+                    {/* <Link href="/shop/Plants" className="block text-gray-600">Plants</Link> */}
+                    {/* <Link href="/shop/Rocks" className="block text-gray-600">Rocks</Link> */}
+                    {/* <Link href="/shop/Others" className="block text-gray-600">Others</Link> */}
                   </div>
                 </div>
               </div>

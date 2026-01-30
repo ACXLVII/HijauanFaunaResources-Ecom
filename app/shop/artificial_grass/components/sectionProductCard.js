@@ -67,21 +67,25 @@ export default function ProductCard({ product }) {
   // Helper function to convert base64 string to data URI
   const getImageSrc = (imageData) => {
     if (!imageData) return '/images/shop/ArtificialGrassTexture.jpg';
+    
+    // Ensure imageData is a string
+    const imageStr = typeof imageData === 'string' ? imageData : String(imageData);
+    
     // If it's already a data URI or URL, return as is
-    if (imageData.startsWith('data:') || imageData.startsWith('http') || imageData.startsWith('/')) {
-      return imageData;
+    if (imageStr.startsWith('data:') || imageStr.startsWith('http') || imageStr.startsWith('/')) {
+      return imageStr;
     }
     // If it's a base64 string, convert to data URI
     // Try to detect image type, default to jpeg
-    const imageType = imageData.match(/^data:image\/(\w+);base64,/) 
-      ? imageData.split(';')[0].split('/')[1] 
+    const imageType = imageStr.match(/^data:image\/(\w+);base64,/) 
+      ? imageStr.split(';')[0].split('/')[1] 
       : 'jpeg';
     // If it already has the data URI prefix, return as is
-    if (imageData.startsWith('data:')) {
-      return imageData;
+    if (imageStr.startsWith('data:')) {
+      return imageStr;
     }
     // Otherwise, add the data URI prefix
-    return `data:image/${imageType};base64,${imageData}`;
+    return `data:image/${imageType};base64,${imageStr}`;
   };
   const imageSrc = product.images?.[0] ? getImageSrc(product.images[0]) : '/images/shop/ArtificialGrassTexture.jpg';
 

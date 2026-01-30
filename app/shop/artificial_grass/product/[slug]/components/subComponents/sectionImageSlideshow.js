@@ -12,6 +12,12 @@ function SectionImageSlideshow({ images }) {
 
   if (!images || images.length === 0) return null;
 
+  // Helper function to check if image is base64 data URI
+  const isBase64 = (src) => {
+    if (!src || typeof src !== 'string') return false;
+    return src.startsWith('data:');
+  };
+
   return (
     <div className="overflow-hidden flex flex-col">
       
@@ -23,6 +29,7 @@ function SectionImageSlideshow({ images }) {
           className="absolute inset-0 w-full h-full object-cover rounded-md lg:rounded-lg cursor-zoom-in"
           width={800}
           height={600}
+          unoptimized={isBase64(images[selectedIndex])}
           onClick={() => setModalOpen(true)}
         />
       </div>
@@ -39,8 +46,9 @@ function SectionImageSlideshow({ images }) {
                 ? 'ring-2 ring-[#C39533]'
                 : 'opacity-50 cursor-pointer'
             }`}
-            width={800}
-            height={600}
+            width={80}
+            height={80}
+            unoptimized={isBase64(img)}
             onClick={() => setSelectedIndex(idx)}
           />
         ))}
@@ -68,6 +76,7 @@ function SectionImageSlideshow({ images }) {
               className="object-contain max-h-[90vh] max-w-[90vw]"
               width={800}
               height={600}
+              unoptimized={isBase64(images[selectedIndex])}
             />
           </div>
         </div>

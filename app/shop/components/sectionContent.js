@@ -98,8 +98,8 @@ export default function SectionContent() {
           </div>
           {/* Grass Button ENDS */}
 
-          {/* Plants Button BEGINS */}
-          <div
+          {/* Plants Button - HIDDEN */}
+          {/* <div
             className="relative overflow-hidden rounded-lg lg:rounded-xl shadow-lg active:shadow-none cursor-pointer transition hover:scale-101 active:scale-99"
             style={{
               backgroundImage: "url('/images/shop/plants.jpg')",
@@ -120,11 +120,11 @@ export default function SectionContent() {
             <h1 className="absolute flex items-start top-2 lg:top-3 left-2 lg:left-3 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Plants
             </h1>
-          </div>
+          </div> */}
           {/* Plants Button ENDS */}
 
-          {/* Rocks Button BEGINS */}
-          <div
+          {/* Rocks Button - HIDDEN */}
+          {/* <div
             className="relative overflow-hidden rounded-lg lg:rounded-xl cursor-pointer transition hover:scale-101 active:scale-99 active:opacity-50"
             style={{
               backgroundImage: "url('/images/shop/rocks.jpg')",
@@ -145,11 +145,11 @@ export default function SectionContent() {
             <h1 className="absolute flex items-start top-2 lg:top-3 left-2 lg:left-3 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Rocks
             </h1>
-          </div>
+          </div> */}
           {/* Rocks Button ENDS */}
           
-          {/* Others Button BEGINS */}
-          <div
+          {/* Others Button - HIDDEN */}
+          {/* <div
             className="relative overflow-hidden rounded-lg lg:rounded-xl cursor-pointer transition hover:scale-101 active:scale-99 active:opacity-50"
             style={{
               backgroundImage: "url('/images/shop/others.jpg')",
@@ -170,7 +170,7 @@ export default function SectionContent() {
             <h1 className="absolute flex items-start top-2 lg:top-3 left-2 lg:left-3 font-bold tracking-tight text-2xl lg:text-3xl text-[#FFFFFF]">
               Others
             </h1>
-          </div>
+          </div> */}
           {/* Others Button ENDS */}
 
         </div>
