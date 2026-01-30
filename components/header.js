@@ -36,7 +36,7 @@ import {
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
-import NavigationPanels from '/components/components/sectionNavigationPanels';
+import NavigationPanels from './components/sectionNavigationPanels';
 import { useCart } from '@/app/hooks/useCart';
 
 const navigation = {
